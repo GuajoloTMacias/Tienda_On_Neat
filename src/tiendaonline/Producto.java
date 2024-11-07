@@ -11,7 +11,6 @@ public class Producto {
     public Producto(String nombre, String descripcion, String imagen, double precio, double precioMayoreo, int cantidad, String dimensiones) {
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.imagen = imagen;
         this.precio = precio;
         this.precioMayoreo = precioMayoreo;
         this.cantidad = cantidad;
