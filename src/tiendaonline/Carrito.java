@@ -14,7 +14,7 @@ public class Carrito {
     }
 
     public void calcularTotal() {
-        
+         totalPagar = 0.0;
     }
 
     public void eliminarProducto(Producto producto) {
