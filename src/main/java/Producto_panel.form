@@ -28,24 +28,16 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="Nombre_producto" min="-2" pref="96" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="Imagen" min="-2" pref="234" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="Descripcion_producto" min="-2" pref="226" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="Nombre_producto" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
+                  <Component id="Imagen" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
+                  <Component id="Descripcion_producto" alignment="0" min="-2" pref="226" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="10" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <Component id="Panel_botones" pref="244" max="32767" attributes="0"/>
+              <Component id="Panel_botones" pref="246" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -69,7 +61,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="Imagen">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="IMAGEN"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="Nombre_producto">

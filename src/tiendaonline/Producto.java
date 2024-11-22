@@ -7,14 +7,18 @@ public class Producto {
     private double precioMayoreo;
     private int cantidad;
     private String dimensiones;
+    
+    private String url_imagen;
 
-    public Producto(String nombre, String descripcion, String imagen, double precio, double precioMayoreo, int cantidad, String dimensiones) {
+    public Producto(String nombre, String descripcion, String url_imagen, double precio, double precioMayoreo, int cantidad, String dimensiones) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.precioMayoreo = precioMayoreo;
         this.cantidad = cantidad;
         this.dimensiones = dimensiones;
+        
+        this.url_imagen = url_imagen;
     }
 
     public String getNombre() {
@@ -40,5 +44,10 @@ public class Producto {
     public String getDimensiones() {
         return dimensiones;
     }
+    
+        public String getImagen() {
+        return this.url_imagen;
+    }
+
 }
 

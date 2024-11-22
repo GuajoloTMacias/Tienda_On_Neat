@@ -1,3 +1,9 @@
+
+import java.awt.Component;
+import java.util.ArrayList;
+import javax.swing.JPanel;
+import tiendaonline.Producto;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,21 +20,21 @@ public class Homepage extends javax.swing.JFrame {
      */
     public Homepage() {
         initComponents();
+        // testing
         
-        int fila = 0;
-        int columna = 0;
+        ArrayList<Producto> prueba = new ArrayList();
+        prueba.add(new Producto("nom","desc","imagen",0.0,0.0,0,""));
+        prueba.add(new Producto("nom1","desc","imagen",0.0,0.0,0,""));
+        prueba.add(new Producto("nom2","desc","imagen",0.0,0.0,0,""));
+        prueba.add(new Producto("nom3","desc","imagen",0.0,0.0,0,""));
+        prueba.add(new Producto("nom4","desc","imagen",0.0,0.0,0,""));
+        prueba.add(new Producto("nom5","desc","imagen",0.0,0.0,0,""));
+        prueba.add(new Producto("nom6","desc","imagen",0.0,0.0,0,""));
+        prueba.add(new Producto("nom7","desc","imagen",0.0,0.0,0,""));
+        prueba.add(new Producto("nom8","desc","imagen",0.0,0.0,0,""));
+        Producto_panel.Mostrar_productos(prueba, this.panel_producto_contenedor,this);
         
-        for (int i=0; i < 3; i++){
-            
-            Producto_panel Producto = new Producto_panel();
-            Producto.setLocation(fila, columna);
-            Producto.setSize(250, 350);
-            panel_producto.add(Producto);
-            this.validate();
-            this.repaint();
-            Producto.validate();
-            Producto.repaint();   
-        }
+        // testing
         
     }
 
@@ -46,6 +52,8 @@ public class Homepage extends javax.swing.JFrame {
         btn_iniciar_sesion = new javax.swing.JButton();
         Logo = new javax.swing.JLabel();
         panel_producto = new javax.swing.JPanel();
+        panel_producto_scroll = new javax.swing.JScrollPane();
+        panel_producto_contenedor = new javax.swing.JPanel();
         Txt_buscar = new javax.swing.JTextField();
         btn_categorias = new javax.swing.JButton();
         btn_ofertas = new javax.swing.JButton();
@@ -82,15 +90,30 @@ public class Homepage extends javax.swing.JFrame {
         panel_producto.setName(""); // NOI18N
         panel_producto.setPreferredSize(new java.awt.Dimension(900, 350));
 
+        panel_producto_scroll.setBorder(null);
+        panel_producto_scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        panel_producto_scroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        panel_producto_scroll.setMaximumSize(new java.awt.Dimension(900, 350));
+        panel_producto_scroll.setMinimumSize(new java.awt.Dimension(900, 350));
+        panel_producto_scroll.setPreferredSize(new java.awt.Dimension(900, 350));
+
+        panel_producto_contenedor.setBackground(new java.awt.Color(255, 255, 255));
+        panel_producto_contenedor.setName(""); // NOI18N
+        panel_producto_contenedor.setLayout(new javax.swing.BoxLayout(panel_producto_contenedor, javax.swing.BoxLayout.LINE_AXIS));
+        panel_producto_scroll.setViewportView(panel_producto_contenedor);
+
         javax.swing.GroupLayout panel_productoLayout = new javax.swing.GroupLayout(panel_producto);
         panel_producto.setLayout(panel_productoLayout);
         panel_productoLayout.setHorizontalGroup(
             panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_productoLayout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(panel_producto_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 859, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         panel_productoLayout.setVerticalGroup(
             panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
+            .addComponent(panel_producto_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         Txt_buscar.setText("Buscar");
@@ -263,6 +286,8 @@ public class Homepage extends javax.swing.JFrame {
             }
         });
     }
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Contenedor;
@@ -274,5 +299,7 @@ public class Homepage extends javax.swing.JFrame {
     private javax.swing.JButton btn_iniciar_sesion;
     private javax.swing.JButton btn_ofertas;
     private javax.swing.JPanel panel_producto;
+    private javax.swing.JPanel panel_producto_contenedor;
+    private javax.swing.JScrollPane panel_producto_scroll;
     // End of variables declaration//GEN-END:variables
 }

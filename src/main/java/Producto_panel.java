@@ -1,3 +1,15 @@
+
+import java.awt.Component;
+import java.awt.Image;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import tiendaonline.Producto;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -11,11 +23,42 @@ public class Producto_panel extends javax.swing.JPanel {
 
     /**
      * Creates new form Producto_panel
+     * @param nombre
+     * @param descripcion
+     * @param url_imagen
      */
-    public Producto_panel() {
+    
+    public Producto_panel(String nombre, String descripcion, String url_imagen) {
         initComponents();
-    }
+                
+        this.Descripcion_producto.setText(descripcion);
+        this.Nombre_producto.setText(nombre);
+        try{
+            Path path_img = Paths.get(url_imagen);
+            Image img = ImageIO.read(path_img.toFile());
+            this.Imagen.setIcon(new ImageIcon(img));
+            this.Imagen.setText("");
+        }catch(IOException e){
+                        this.Imagen.setIcon(null);
+        }
 
+    }
+        /*
+        *   @param _repaint Main component to repaint form
+        */
+        public static void Mostrar_productos(ArrayList<Producto> productos,JPanel  contenedor, Component _repaint){
+ 
+       for(Producto p : productos){
+            Producto_panel panel = new Producto_panel(p.getNombre(), p.getDescripcion(), p.getImagen());
+            panel.setSize(250, 350);
+            contenedor.add(panel);
+
+        }
+       _repaint.validate();
+       _repaint.repaint();
+
+    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,7 +81,9 @@ public class Producto_panel extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(250, 350));
         setPreferredSize(new java.awt.Dimension(250, 350));
 
-        Imagen.setText("jLabel1");
+        Imagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Imagen.setText("IMAGEN");
+        Imagen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         Nombre_producto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Nombre_producto.setText("Producto");
@@ -87,19 +132,14 @@ public class Producto_panel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Nombre_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Descripcion_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(Nombre_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Descripcion_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(Panel_botones, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(Panel_botones, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

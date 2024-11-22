@@ -15,21 +15,6 @@ public class Homepage_Inicio_administrador extends javax.swing.JFrame {
     public Homepage_Inicio_administrador() {
         initComponents();
         
-        int fila = 0;
-        int columna = 0;
-        
-        for (int i=0; i < 3; i++){
-            
-            Producto_panel Producto = new Producto_panel();
-            Producto.setLocation(fila, columna);
-            Producto.setSize(250, 350);
-            panel_producto.add(Producto);
-            this.validate();
-            this.repaint();
-            Producto.validate();
-            Producto.repaint();   
-        }
-        
     }
 
     /**
