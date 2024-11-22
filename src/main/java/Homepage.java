@@ -23,6 +23,7 @@ public class Homepage extends javax.swing.JFrame {
         // testing
         
         ArrayList<Producto> prueba = new ArrayList();
+        /*
         prueba.add(new Producto("nom","desc","imagen",0.0,0.0,0,""));
         prueba.add(new Producto("nom1","desc","imagen",0.0,0.0,0,""));
         prueba.add(new Producto("nom2","desc","imagen",0.0,0.0,0,""));
@@ -34,6 +35,7 @@ public class Homepage extends javax.swing.JFrame {
         prueba.add(new Producto("nom8","desc","imagen",0.0,0.0,0,""));
         Producto_panel.Mostrar_productos(prueba, this.panel_producto_contenedor,this);
         
+        */
         // testing
         
     }

@@ -7,13 +7,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import tiendaonline.Producto;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 
 /**
  *
@@ -27,6 +24,9 @@ public class Producto_panel extends javax.swing.JPanel {
      * @param descripcion
      * @param url_imagen
      */
+    
+    private Carrito_I carrito;
+    private Producto producto;
     
     public Producto_panel(String nombre, String descripcion, String url_imagen) {
         initComponents();
@@ -99,6 +99,11 @@ public class Producto_panel extends javax.swing.JPanel {
         Txt_cantidad.setText(" 0");
 
         btn_agregar.setText("Agregar");
+        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Panel_botonesLayout = new javax.swing.GroupLayout(Panel_botones);
         Panel_botones.setLayout(Panel_botonesLayout);
@@ -139,7 +144,7 @@ public class Producto_panel extends javax.swing.JPanel {
                     .addComponent(Descripcion_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(Panel_botones, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addComponent(Panel_botones, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -157,6 +162,19 @@ public class Producto_panel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+        agregarProducto();
+    }//GEN-LAST:event_btn_agregarActionPerformed
+
+    private void agregarProducto() {
+        
+        String cant = Txt_cantidad.getText();
+        int cantidad = Integer.parseInt(cant);
+        
+        carrito.agregarProducto(producto, cantidad); 
+        JOptionPane.showMessageDialog(this, "Producto agregado: " + producto.getNombre());
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Descripcion_producto;
