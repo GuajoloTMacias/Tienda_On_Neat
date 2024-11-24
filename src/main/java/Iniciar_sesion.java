@@ -1,3 +1,11 @@
+package main.java;
+
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -8,7 +16,7 @@
  * @author gusta_000
  */
 public class Iniciar_sesion extends javax.swing.JFrame {
-
+     private static final String RUTA_ARCHIVO = "usuarios.txt";  // Ruta del archivo con usuarios
     /**
      * Creates new form Iniciar_sesion
      */
@@ -140,7 +148,7 @@ public class Iniciar_sesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_regresar_inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresar_inicioActionPerformed
-        Homepage newpagina = new Homepage();
+       Homepage newpagina = new Homepage();
         newpagina.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_regresar_inicioActionPerformed
@@ -150,14 +158,49 @@ public class Iniciar_sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_Txt_usuarioActionPerformed
 
     private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
-        
-        Homepage_Inicio_sesion newpagina = new Homepage_Inicio_sesion();
-        newpagina.setVisible(true);
-        this.dispose();
-        
-        
-    }//GEN-LAST:event_btn_aceptarActionPerformed
+  String usuario = Txt_usuario.getText().trim();
+        String contrasena = Txt_contraseña.getText().trim();
 
+        if (validarUsuario(usuario, contrasena)) {
+            // Si el usuario y la contraseña son válidos
+            Homepage_Inicio_sesion newpagina = new Homepage_Inicio_sesion();
+            newpagina.setVisible(true);
+            this.dispose();
+        } else {
+            // Si no es válido, mostramos un mensaje de error
+            javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+        }
+    }//GEN-LAST:event_btn_aceptarActionPerformed
+ // Método para validar si el usuario y la contraseña coinciden con los registrados
+    private boolean validarUsuario(String usuario, String contrasena) {
+        try {
+            File archivo = new File(RUTA_ARCHIVO);
+            if (!archivo.exists()) {
+                // Si el archivo no existe, retorna false
+                return false;
+            }
+
+            // Leer el archivo de texto
+            BufferedReader br = new BufferedReader(new FileReader(archivo));
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(",");
+                String usuarioRegistrado = datos[0];
+                String contrasenaRegistrada = datos[1];
+
+                // Compara si el usuario y la contraseña coinciden
+                if (usuarioRegistrado.equals(usuario) && contrasenaRegistrada.equals(contrasena)) {
+                    br.close();
+                    return true;  // Usuario y contraseña encontrados
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;  // Si no se encuentra el usuario y la contraseña
+    }
     private void btn_crear_cuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crear_cuentaActionPerformed
         Registrarse newpagina = new Registrarse();
         newpagina.setVisible(true);

@@ -1,3 +1,8 @@
+package main.java;
+
+
+import tiendaonline.Registrado;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -163,9 +168,46 @@ public class Registrarse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_siguienteActionPerformed
-        Datos_Bancarios newpagina = new Datos_Bancarios();
-        newpagina.setVisible(true);
-        this.dispose();
+
+    String nombre = txt_nombre.getText();
+    String apellidoPaterno = txt_apellido_paterno.getText();
+    String apellidoMaterno = txt_apellido_materno.getText();
+    String nombreUsuario = txt_nombre_usuario.getText();
+    String contraseña = txt_contraseña.getText();
+    String ciudad = txt_ciudad.getText();
+    String numeroTelefono = txt_numero_telefono.getText();
+
+    // Validación de que no estén vacíos
+    if (nombre.isEmpty() || apellidoPaterno.isEmpty() || apellidoMaterno.isEmpty() ||
+        nombreUsuario.isEmpty() || contraseña.isEmpty() || ciudad.isEmpty() || numeroTelefono.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+        return;
+    }
+
+    // Validación de que el nombre y apellidos no contengan números
+    if (!nombre.matches("[a-zA-Z\\s]+") || !apellidoPaterno.matches("[a-zA-Z\\s]+") || !apellidoMaterno.matches("[a-zA-Z\\s]+")) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El nombre y los apellidos solo deben contener letras.");
+        return;
+    }
+
+    // Validación de que el número de teléfono solo contenga dígitos
+    if (!numeroTelefono.matches("[0-9]+")) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El número de teléfono solo debe contener dígitos.");
+        return;
+    }
+
+    // Crear un objeto de la clase Registrado
+    Registrado nuevoUsuario = new Registrado(
+        nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contraseña, ciudad, numeroTelefono
+    );
+
+    // Guardar el usuario en el archivo
+    nuevoUsuario.guardarEnArchivo();
+
+    // Ir a la siguiente pantalla
+    Datos_Bancarios newpagina = new Datos_Bancarios();
+    newpagina.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_btn_siguienteActionPerformed
 
     private void btn_regresar_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresar_registroActionPerformed
