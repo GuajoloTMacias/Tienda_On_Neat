@@ -1,3 +1,11 @@
+package main.java;
+
+
+import tiendaonline.Registrado;
+import tiendaonline.Sesion;
+import tiendaonline.Tarjeta;
+import tiendaonline.Usuario;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -8,13 +16,17 @@
  * @author gusta_000
  */
 public class Configuracion extends javax.swing.JFrame {
-
+ 
+    private Registrado usuarioRegistrado; // Variable para almacenar el usuario registrado
     /**
      * Creates new form Configuracion
      */
     public Configuracion() {
-        initComponents();
+         initComponents();
     }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,7 +59,6 @@ public class Configuracion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(500, 500));
-        setPreferredSize(new java.awt.Dimension(506, 506));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -208,9 +219,13 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_regresa_configuracionesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Homepage newpagina = new Homepage();
-        newpagina.setVisible(true);
-        this.dispose();
+    // Cerrar la sesión
+    Sesion.cerrarSesion();
+
+    // Redirigir a la página de inicio de sesión
+    Iniciar_sesion nuevaPagina = new Iniciar_sesion();
+    nuevaPagina.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -269,4 +284,14 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel nombre_usuario;
     private javax.swing.JLabel tarjeta_puntos;
     // End of variables declaration//GEN-END:variables
+
+    private static class InicioSesion {
+
+        public InicioSesion() {
+        }
+
+        private void setVisible(boolean b) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+    }
 }

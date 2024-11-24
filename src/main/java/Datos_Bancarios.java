@@ -1,5 +1,6 @@
 package main.java;
 
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -206,7 +207,7 @@ public class Datos_Bancarios extends javax.swing.JFrame {
         int anio = Integer.parseInt(fechaParts[2]);
         
         // Validar si la fecha es válida
-        if (mes < 1 || mes > 12 || dia < 1 || dia > 31 || (anio < 1900 || anio > 2024)) {
+        if (mes < 1 || mes > 12 || dia < 1 || dia > 31 || (anio < 2004 || anio > 2024)) {
             throw new Exception("Fecha de nacimiento inválida.");
         }
 

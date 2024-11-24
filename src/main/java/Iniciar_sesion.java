@@ -5,7 +5,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
+import tiendaonline.Sesion;
+import tiendaonline.Usuario;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -159,20 +160,58 @@ public class Iniciar_sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_Txt_usuarioActionPerformed
 
     private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
-  String usuario = Txt_usuario.getText().trim();
-        String contrasena = Txt_contraseña.getText().trim();
+    String usuario = Txt_usuario.getText(); 
+    String contrasena = Txt_contraseña.getText(); 
 
-        if (validarUsuario(usuario, contrasena)) {
-            // Si el usuario y la contraseña son válidos
-            Homepage_Inicio_sesion newpagina = new Homepage_Inicio_sesion();
-            newpagina.setVisible(true);
+    if (usuario.isEmpty() || contrasena.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(RUTA_ARCHIVO))) { 
+        String linea;
+        boolean encontrado = false;
+        Usuario usuarioLogueado = null;
+
+        while ((linea = reader.readLine()) != null) {
+            String[] partes = linea.split(",");
+            if (partes.length == 7) {  // Se esperan 7 partes por usuario
+                String nombre = partes[0];
+                String apellidoPaterno = partes[1];
+                String apellidoMaterno = partes[2];
+                String nombreUsuario = partes[3];
+                String contrasenaArchivo = partes[4];
+                String ciudad = partes[5];
+                String telefono = partes[6];
+
+                if (usuario.equals(nombreUsuario) && contrasena.equals(contrasenaArchivo)) {
+                    encontrado = true;
+                    // Crear un objeto Registrado con los datos del archivo
+                    usuarioLogueado = new Registrado(nombre, apellidoPaterno, apellidoMaterno, 
+                                                     nombreUsuario, contrasenaArchivo, ciudad, telefono);
+                    break;
+                }
+            }
+        }
+
+        if (encontrado) {
+            // Establecer el usuario en sesión
+            Sesion.setUsuarioActual(usuarioLogueado);
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            Homepage_Inicio_sesion nuevaPagina = new Homepage_Inicio_sesion();
+            nuevaPagina.setVisible(true);
             this.dispose();
         } else {
-            // Si no es válido, mostramos un mensaje de error
-            javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
+    } catch (IOException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al leer el archivo de usuarios.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btn_aceptarActionPerformed
- // Método para validar si el usuario y la contraseña coinciden con los registrados
+ 
+
+// Método para validar si el usuario y la contraseña coinciden con los registrados
     private boolean validarUsuario(String usuario, String contrasena) {
         try {
             File archivo = new File(RUTA_ARCHIVO);
@@ -260,4 +299,29 @@ public class Iniciar_sesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+
+    private static class Registrado extends Usuario {
+
+        public Registrado(String usuario) {
+        }
+
+        private Registrado(String nombre, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenaArchivo, String ciudad, String telefono) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+
+        @Override
+        public void iniciarSesion() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+
+        @Override
+        public void cerrarSesion() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+
+        @Override
+        public void consultarInformacion() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+    }
 }
