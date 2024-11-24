@@ -199,7 +199,7 @@ public class Homepage_Inicio_sesion_categorias extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_configurciones_inicioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Carrito_I newpagina = new Carrito_I();
+        Carrito_1 newpagina = new Carrito_1();
         newpagina.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

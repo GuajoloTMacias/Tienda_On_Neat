@@ -8,15 +8,17 @@ public class Carrito {
     private List<Producto> productos;
     private List<Producto> productosCarrito;
     private PersistenciaProducto persistenciaProducto;
-    private double totalPagar;
+    private double subTotalPagar;
     private String metodoPago;
     private PersistenciaCarrito persistenciaCarrito;
     private String usuario;
+    private static Carrito instancia;
     
-    public Carrito(String usuario) {
+    private Carrito(String usuario) {
         this.productos = new ArrayList<>();
-        this.totalPagar = 0.0;
+        this.subTotalPagar = 0.0;
         productosCarrito = new ArrayList<>();
+        
         persistenciaProducto = new PersistenciaProducto();
         this.usuario = usuario;
         this.persistenciaCarrito = new PersistenciaCarrito();
@@ -26,9 +28,21 @@ public class Carrito {
         }
         
     }
+    
+    public static Carrito getInstance(String usuario) {
+        if (instancia == null) {
+            instancia = new Carrito(usuario);
+        }
+        return instancia;
+    }
 
-    public void calcularTotal() {
-         totalPagar = 0.0;
+    public double calcularTotal() {
+        subTotalPagar = 0.0;     
+        List<Producto> carrito = getProductosCarrito();
+        for (Producto producto : carrito) {
+            subTotalPagar += producto.getPrecio() * producto.getCantidad();
+        }
+        return subTotalPagar;   
     }
 
     public void eliminarProducto(Producto producto) {

@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
-/**
- *
- * @author gusta_000
- */
+import java.util.List;
+import tiendaonline.PersistenciaProducto;
+import tiendaonline.Producto;
+
+
 public class Homepage_Inicio_sesion extends javax.swing.JFrame {
 
     /**
@@ -14,8 +11,13 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
      */
     public Homepage_Inicio_sesion() {
         initComponents();
-        
-        
+        // Cargar productos desde el archivo productos.bin
+        List<Producto> productos = PersistenciaProducto.cargarProductos();
+        if (productos.isEmpty()) {
+            System.out.println("No se encontraron productos en el archivo.");
+        } else {
+            Producto_panel.Mostrar_productos(productos, this.panel_producto_contenedor, this);
+        }      
     }
 
     /**
@@ -29,13 +31,14 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
 
         Contenedor = new javax.swing.JPanel();
         Logo = new javax.swing.JLabel();
-        panel_producto = new javax.swing.JPanel();
         Txt_buscar_inicio = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btn_categorias_inicio = new javax.swing.JButton();
         btn_ofertas_inicio = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btn_configuraciones = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        panel_producto_contenedor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -48,22 +51,6 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
 
         Logo.setBackground(java.awt.Color.white);
         Logo.setText("Logo");
-
-        panel_producto.setMaximumSize(new java.awt.Dimension(900, 350));
-        panel_producto.setMinimumSize(new java.awt.Dimension(900, 350));
-        panel_producto.setName(""); // NOI18N
-        panel_producto.setPreferredSize(new java.awt.Dimension(900, 350));
-
-        javax.swing.GroupLayout panel_productoLayout = new javax.swing.GroupLayout(panel_producto);
-        panel_producto.setLayout(panel_productoLayout);
-        panel_productoLayout.setHorizontalGroup(
-            panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-        );
-        panel_productoLayout.setVerticalGroup(
-            panel_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
-        );
 
         Txt_buscar_inicio.setText("Buscar");
         Txt_buscar_inicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,11 +96,26 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
             }
         });
 
+        panel_producto_contenedor.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panel_producto_contenedorLayout = new javax.swing.GroupLayout(panel_producto_contenedor);
+        panel_producto_contenedor.setLayout(panel_producto_contenedorLayout);
+        panel_producto_contenedorLayout.setHorizontalGroup(
+            panel_producto_contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1051, Short.MAX_VALUE)
+        );
+        panel_producto_contenedorLayout.setVerticalGroup(
+            panel_producto_contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 377, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(panel_producto_contenedor);
+
         javax.swing.GroupLayout ContenedorLayout = new javax.swing.GroupLayout(Contenedor);
         Contenedor.setLayout(ContenedorLayout);
         ContenedorLayout.setHorizontalGroup(
             ContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenedorLayout.createSequentialGroup()
+            .addGroup(ContenedorLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -122,18 +124,20 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
                 .addComponent(btn_categorias_inicio)
                 .addGap(36, 36, 36)
                 .addComponent(btn_ofertas_inicio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_configuraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenedorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(ContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_producto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenedorLayout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57))))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
+            .addGroup(ContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ContenedorLayout.createSequentialGroup()
+                    .addGap(3, 3, 3)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1053, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         ContenedorLayout.setVerticalGroup(
             ContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,11 +150,14 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
                     .addComponent(btn_categorias_inicio)
                     .addComponent(btn_ofertas_inicio)
                     .addComponent(btn_configuraciones))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(397, 397, 397)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(ContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ContenedorLayout.createSequentialGroup()
+                    .addGap(63, 63, 63)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(63, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,38 +165,16 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(Contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(Contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void Txt_buscar_inicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_buscar_inicioMouseClicked
-        Txt_buscar_inicio.setText("");
-    }//GEN-LAST:event_Txt_buscar_inicioMouseClicked
-
-    private void Txt_buscar_inicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_buscar_inicioMouseEntered
-        Txt_buscar_inicio.setText("Buscar");
-    }//GEN-LAST:event_Txt_buscar_inicioMouseEntered
-
-    private void btn_categorias_inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_categorias_inicioActionPerformed
-        Homepage_Inicio_sesion_categorias newpagina = new Homepage_Inicio_sesion_categorias();
-        newpagina.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btn_categorias_inicioActionPerformed
-
-    private void btn_ofertas_inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertas_inicioActionPerformed
-        Homepage_Inicio_sesion_ofertas newpagina = new Homepage_Inicio_sesion_ofertas();
-        newpagina.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btn_ofertas_inicioActionPerformed
 
     private void btn_configuracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_configuracionesActionPerformed
         Configuracion newpagina = new Configuracion();
@@ -198,10 +183,30 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_configuracionesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Carrito_I newpagina = new Carrito_I();
+        Carrito_1 newpagina = new Carrito_1();
         newpagina.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_ofertas_inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertas_inicioActionPerformed
+        Homepage_Inicio_sesion_ofertas newpagina = new Homepage_Inicio_sesion_ofertas();
+        newpagina.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_ofertas_inicioActionPerformed
+
+    private void btn_categorias_inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_categorias_inicioActionPerformed
+        Homepage_Inicio_sesion_categorias newpagina = new Homepage_Inicio_sesion_categorias();
+        newpagina.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_categorias_inicioActionPerformed
+
+    private void Txt_buscar_inicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_buscar_inicioMouseEntered
+        Txt_buscar_inicio.setText("Buscar");
+    }//GEN-LAST:event_Txt_buscar_inicioMouseEntered
+
+    private void Txt_buscar_inicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_buscar_inicioMouseClicked
+        Txt_buscar_inicio.setText("");
+    }//GEN-LAST:event_Txt_buscar_inicioMouseClicked
  
     
     /**
@@ -248,6 +253,7 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
     private javax.swing.JButton btn_ofertas_inicio;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel panel_producto;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panel_producto_contenedor;
     // End of variables declaration//GEN-END:variables
 }
