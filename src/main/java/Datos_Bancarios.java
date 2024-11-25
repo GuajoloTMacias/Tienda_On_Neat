@@ -163,6 +163,12 @@ public class Datos_Bancarios extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_regesar_datosActionPerformed
 
+    
+    
+    
+    
+    
+    
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
       // Obtener los datos ingresados
     String titular = jTextField1.getText();
@@ -196,7 +202,6 @@ public class Datos_Bancarios extends javax.swing.JFrame {
     }
 
     // Validación de la fecha de nacimiento (Formato: dd/mm/yyyy)
-    // Comprobar que la fecha esté en formato válido y que no sea en el futuro
     try {
         String[] fechaParts = fechaNacimiento.split("/");
         if (fechaParts.length != 3) {
@@ -205,9 +210,9 @@ public class Datos_Bancarios extends javax.swing.JFrame {
         int dia = Integer.parseInt(fechaParts[0]);
         int mes = Integer.parseInt(fechaParts[1]);
         int anio = Integer.parseInt(fechaParts[2]);
-        
+
         // Validar si la fecha es válida
-        if (mes < 1 || mes > 12 || dia < 1 || dia > 31 || (anio < 2004 || anio > 2024)) {
+        if (mes < 1 || mes > 12 || dia < 1 || dia > 31 || (anio < 1900 || anio > 2004)) {
             throw new Exception("Fecha de nacimiento inválida.");
         }
 
@@ -234,19 +239,14 @@ public class Datos_Bancarios extends javax.swing.JFrame {
         case "Débito":
             tarjeta = new Debito(titular, numeroTarjeta, fechaNacimiento, cvv);
             break;
-        case "Puntos":
-            tarjeta = new Puntos(titular, numeroTarjeta, fechaNacimiento, cvv);
-            break;
         default:
             javax.swing.JOptionPane.showMessageDialog(this, "Selecciona un tipo de tarjeta válido.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
     }
 
-    // Guardar los datos en un archivo
+    // Guardar los datos en un archivo en una sola línea
     try (BufferedWriter writer = new BufferedWriter(new FileWriter("datos_bancarios.txt", true))) {
-        writer.write(tarjeta.toString());
-        writer.newLine();
-        writer.write("-------------------------------");
+        writer.write(titular + "," + numeroTarjeta + "," + fechaNacimiento + "," + cvv + "," + tipoTarjeta);
         writer.newLine();
         javax.swing.JOptionPane.showMessageDialog(this, "Datos bancarios guardados correctamente.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     } catch (IOException e) {
@@ -257,8 +257,16 @@ public class Datos_Bancarios extends javax.swing.JFrame {
     Homepage_Inicio_sesion newpagina = new Homepage_Inicio_sesion();
     newpagina.setVisible(true);
     this.dispose();
+
     }//GEN-LAST:event_btn_agregarActionPerformed
 
+    
+    
+    
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */

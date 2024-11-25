@@ -1,11 +1,12 @@
 package tiendaonline;
 
 public class Credito extends Tarjeta {
-    private String cvv;
-    private double limiteCredito;
+    public Credito(String titular, String numeroTarjeta, String fechaNacimiento, String cvv) {
+        super(titular, numeroTarjeta, fechaNacimiento, cvv);
+    }
 
     @Override
-    public void verificarVigencia() {
-       
+    public String toString() {
+        return super.toString() + ", Crédito";
     }
 }

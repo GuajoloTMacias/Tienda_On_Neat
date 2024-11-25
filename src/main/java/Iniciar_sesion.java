@@ -160,7 +160,7 @@ public class Iniciar_sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_Txt_usuarioActionPerformed
 
     private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
-    String usuario = Txt_usuario.getText(); 
+     String usuario = Txt_usuario.getText(); 
     String contrasena = Txt_contraseña.getText(); 
 
     if (usuario.isEmpty() || contrasena.isEmpty()) {
@@ -175,7 +175,7 @@ public class Iniciar_sesion extends javax.swing.JFrame {
 
         while ((linea = reader.readLine()) != null) {
             String[] partes = linea.split(",");
-            if (partes.length == 7) {  // Se esperan 7 partes por usuario
+            if (partes.length == 7) {  // Aseguramos que la línea tiene los campos necesarios
                 String nombre = partes[0];
                 String apellidoPaterno = partes[1];
                 String apellidoMaterno = partes[2];
@@ -186,7 +186,7 @@ public class Iniciar_sesion extends javax.swing.JFrame {
 
                 if (usuario.equals(nombreUsuario) && contrasena.equals(contrasenaArchivo)) {
                     encontrado = true;
-                    // Crear un objeto Registrado con los datos del archivo
+                    // Crear el objeto Registrado con los datos del archivo
                     usuarioLogueado = new Registrado(nombre, apellidoPaterno, apellidoMaterno, 
                                                      nombreUsuario, contrasenaArchivo, ciudad, telefono);
                     break;

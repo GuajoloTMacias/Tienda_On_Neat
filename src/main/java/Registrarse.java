@@ -167,49 +167,62 @@ public class Registrarse extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    
     private void btn_siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_siguienteActionPerformed
-
+    // Recuperar los datos de los campos de texto
     String nombre = txt_nombre.getText();
     String apellidoPaterno = txt_apellido_paterno.getText();
     String apellidoMaterno = txt_apellido_materno.getText();
     String nombreUsuario = txt_nombre_usuario.getText();
-    String contraseña = txt_contraseña.getText();
+    String contrasena = txt_contraseña.getText();
     String ciudad = txt_ciudad.getText();
     String numeroTelefono = txt_numero_telefono.getText();
 
-    // Validación de que no estén vacíos
+    // Validaciones de los campos
     if (nombre.isEmpty() || apellidoPaterno.isEmpty() || apellidoMaterno.isEmpty() ||
-        nombreUsuario.isEmpty() || contraseña.isEmpty() || ciudad.isEmpty() || numeroTelefono.isEmpty()) {
+        nombreUsuario.isEmpty() || contrasena.isEmpty() || ciudad.isEmpty() || numeroTelefono.isEmpty()) {
         javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
         return;
     }
 
-    // Validación de que el nombre y apellidos no contengan números
     if (!nombre.matches("[a-zA-Z\\s]+") || !apellidoPaterno.matches("[a-zA-Z\\s]+") || !apellidoMaterno.matches("[a-zA-Z\\s]+")) {
         javax.swing.JOptionPane.showMessageDialog(this, "El nombre y los apellidos solo deben contener letras.");
         return;
     }
 
-    // Validación de que el número de teléfono solo contenga dígitos
     if (!numeroTelefono.matches("[0-9]+")) {
         javax.swing.JOptionPane.showMessageDialog(this, "El número de teléfono solo debe contener dígitos.");
         return;
     }
 
-    // Crear un objeto de la clase Registrado
+    // Validar duplicidad del nombre de usuario
+    if (Registrado.esUsuarioDuplicado(nombreUsuario)) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El nombre de usuario ya está en uso. Elija otro.");
+        return;
+    }
+
+    // Crear el objeto del usuario registrado
     Registrado nuevoUsuario = new Registrado(
-        nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contraseña, ciudad, numeroTelefono
+        nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasena, ciudad, numeroTelefono
     );
 
     // Guardar el usuario en el archivo
     nuevoUsuario.guardarEnArchivo();
+    javax.swing.JOptionPane.showMessageDialog(this, "Usuario registrado con éxito.");
 
-    // Ir a la siguiente pantalla
+    // Ir a la pantalla de datos bancarios
     Datos_Bancarios newpagina = new Datos_Bancarios();
     newpagina.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_btn_siguienteActionPerformed
 
+    
+    
+    
+    
+    
     private void btn_regresar_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresar_registroActionPerformed
         Homepage newpagina = new Homepage();
         newpagina.setVisible(true);
