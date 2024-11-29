@@ -1,3 +1,4 @@
+package main.java;
 
 import java.awt.Component;
 import java.awt.Image;
@@ -7,13 +8,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import tiendaonline.Carrito;
-import tiendaonline.Producto;
 import java.awt.GridLayout;
 import java.io.InputStream;
 import java.util.List;
-import tiendaonline.PersistenciaProducto;
+import tiendaonline.Oferta;
 
-public class Producto_panel extends javax.swing.JPanel {
+public class Producto_panel_oferta extends javax.swing.JPanel {
 
     /**
      * Creates new form Producto_panel
@@ -21,17 +21,18 @@ public class Producto_panel extends javax.swing.JPanel {
      * @param descripcion
      * @param url_imagen
      * @param precio
+     * @param precio_descuento
+     * @param descuento
      */
     
     private Carrito carrito;
-    private Producto producto;
+    private Oferta oferta;
     
-    public Producto_panel(String nombre, String descripcion, String url_imagen, double precio) {
+    public Producto_panel_oferta(String nombre, String descripcion, String url_imagen, double precio, double precio_descuento, int descuento) {
         initComponents();
-                
-        this.Nombre_producto.setText(nombre);
-        this.Descripcion_producto.setText("<html><p style='width:150px;'>" + descripcion + "</p></html>");
-
+        
+        this.Nombre_producto.setText("<html><p style='width:130px;'>" + nombre + "</p></html>");
+        this.Descripcion_producto.setText("<html><p style='width:140px;'>" + descripcion + "</p></html>");
         
         try {
             InputStream imgStream = getClass().getResourceAsStream(url_imagen);
@@ -47,136 +48,32 @@ public class Producto_panel extends javax.swing.JPanel {
             System.out.println("Error al cargar la imagen: " + e.getMessage());
             this.Imagen.setIcon(null);
         }
-        this.Precio.setText(String.format("$%.2f", precio));      
+        
+        this.Precio.setText(String.format("$%.2f", precio));
+        this.Precio_Anterior.setText(String.format("<html><strike>$%.2f</strike></html>", precio_descuento));
+        this.Descuento.setText(descuento + "% dto.");
+
     }
     
-    public static void Mostrar_productos(List<Producto> productos,JPanel Contenedor, Component _repaint){
+    public static void Mostrar_Ofertas(List<Oferta> ofertas,JPanel Contenedor, Component _repaint){
         
-        // Configurar el layout
+        // Configurar el g layout
         int columnas = 4; 
-        int filas = (int) Math.ceil((double) productos.size() / columnas); 
+        int filas = (int) Math.ceil((double) ofertas.size() / columnas); 
         Contenedor.setLayout(new GridLayout(filas, columnas, 10, 10)); // Espaciado
 
         Contenedor.removeAll();
 
         // Agregar los productos 
-        for (Producto p : productos) {
-            Producto_panel panel = new Producto_panel(p.getNombre(), p.getDescripcion(), p.getImagen(), p.getPrecio());
+        for (Oferta o : ofertas) {
+            Producto_panel_oferta panel = new Producto_panel_oferta(o.getNombre(), o.getDescripcion(), o.getImagen(), o.getPrecio(), o.getPrecioDescuento(), o.getDescuento());
             panel.setSize(250, 350); 
             Contenedor.add(panel);  
-        }
-        _repaint.validate();
-        _repaint.repaint();
     }
-    
-    
-    public static void Mostrar_Arduino(List<Producto> productos,JPanel Contenedor, Component _repaint){     
-        
-        // Agregar el filtrado por categorias
-        List<Producto> productosArduino = PersistenciaProducto.filtrarPorCategoria(productos, "arduino");
-        // Configurar el layout
-        int columnas = 4; 
-        int filas = (int) Math.ceil((double) productosArduino.size() / columnas); 
-        Contenedor.setLayout(new GridLayout(filas, columnas, 10, 10)); // Espaciado
-        Contenedor.removeAll();
-        
-        
 
-        // Mostrar productos arduino en el panel
-        for (Producto p : productosArduino) {
-            Producto_panel productoPanel = new Producto_panel(
-                    p.getNombre(),
-                    p.getDescripcion(),
-                    p.getImagen(), 
-                    p.getPrecio()
-            );
-            productoPanel.setSize(250, 350);
-            Contenedor.add(productoPanel);
-        }      
         _repaint.validate();
         _repaint.repaint();
     }
-    
-    public static void Mostrar_Componente(List<Producto> productos,JPanel Contenedor, Component _repaint){     
-        
-        // Agregar el filtrado por categorias
-        List<Producto> productosComponente = PersistenciaProducto.filtrarPorCategoria(productos, "componente");
-
-        // Configurar el layout
-        int columnas = 4; 
-        int filas = (int) Math.ceil((double) productosComponente.size() / columnas); 
-        Contenedor.setLayout(new GridLayout(filas, columnas, 10, 10)); // Espaciado
-        Contenedor.removeAll();
-             
-        // Mostrar productos arduino en el panel
-        for (Producto p : productosComponente) {
-            Producto_panel productoPanel = new Producto_panel(
-                    p.getNombre(),
-                    p.getDescripcion(),
-                    p.getImagen(), 
-                    p.getPrecio()
-            );
-            productoPanel.setSize(250, 350);
-            Contenedor.add(productoPanel);
-        }    
-        _repaint.validate();
-        _repaint.repaint();
-    }
-    
-    public static void Mostrar_Modulo(List<Producto> productos,JPanel Contenedor, Component _repaint){     
-        
-        // Agregar el filtrado por categorias
-        List<Producto> productosModulo = PersistenciaProducto.filtrarPorCategoria(productos, "módulo");
-
-        // Configurar el layout
-        int columnas = 4; 
-        int filas = (int) Math.ceil((double) productosModulo.size() / columnas); 
-        Contenedor.setLayout(new GridLayout(filas, columnas, 10, 10)); // Espaciado
-        Contenedor.removeAll();
-        
-        
-        // Mostrar productos arduino en el panel
-        for (Producto p : productosModulo) {
-            Producto_panel productoPanel = new Producto_panel(
-                    p.getNombre(),
-                    p.getDescripcion(),
-                    p.getImagen(), 
-                    p.getPrecio()
-            );
-            productoPanel.setSize(250, 350);
-            Contenedor.add(productoPanel);
-        }     
-        _repaint.validate();
-        _repaint.repaint();
-    }
-    
-    public static void Mostrar_Sensor(List<Producto> productos,JPanel Contenedor, Component _repaint){     
-        
-        // Agregar el filtrado por categorias
-        List<Producto> productosSensores = PersistenciaProducto.filtrarPorCategoria(productos, "sensor");
-
-        // Configurar el layout
-        int columnas = 4; 
-        int filas = (int) Math.ceil((double) productosSensores.size() / columnas); 
-        Contenedor.setLayout(new GridLayout(filas, columnas, 10, 10)); // Espaciado
-        Contenedor.removeAll();
-        
-        
-        // Mostrar productos arduino en el panel
-        for (Producto p : productosSensores) {
-            Producto_panel productoPanel = new Producto_panel(
-                    p.getNombre(),
-                    p.getDescripcion(),
-                    p.getImagen(), 
-                    p.getPrecio()
-            );
-            productoPanel.setSize(250, 350);
-            Contenedor.add(productoPanel);
-        }      
-        _repaint.validate();
-        _repaint.repaint();
-    }
-    
     
     
     @SuppressWarnings("unchecked")
@@ -192,11 +89,12 @@ public class Producto_panel extends javax.swing.JPanel {
         Txt_cantidad = new javax.swing.JLabel();
         btn_agregar = new javax.swing.JButton();
         Precio = new javax.swing.JLabel();
+        Precio_Anterior = new javax.swing.JLabel();
+        Descuento = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(250, 365));
         setMinimumSize(new java.awt.Dimension(250, 365));
         setPreferredSize(new java.awt.Dimension(250, 365));
-        setVerifyInputWhenFocusTarget(false);
 
         Imagen.setBackground(new java.awt.Color(255, 255, 255));
         Imagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -256,6 +154,10 @@ public class Producto_panel extends javax.swing.JPanel {
         Precio.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         Precio.setText("$");
 
+        Precio_Anterior.setText("$");
+
+        Descuento.setText("-0% dto");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -264,20 +166,24 @@ public class Producto_panel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Panel_botones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Descripcion_producto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(Descripcion_producto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 4, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(Precio, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 4, Short.MAX_VALUE)))
+                                .addComponent(Precio, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Precio_Anterior)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Descuento)
+                                .addGap(25, 25, 25)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Nombre_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Nombre_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -288,12 +194,15 @@ public class Producto_panel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Nombre_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Descripcion_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Descripcion_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Precio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Precio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Precio_Anterior)
+                    .addComponent(Descuento))
+                .addGap(1, 1, 1)
                 .addComponent(Panel_botones, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -306,17 +215,19 @@ public class Producto_panel extends javax.swing.JPanel {
         String cant = Txt_cantidad.getText();
         int cantidad = Integer.parseInt(cant);
         
-        carrito.agregarProducto(producto, cantidad); 
-        JOptionPane.showMessageDialog(this, "Producto agregado: " + producto.getNombre());
+        carrito.agregarProducto(oferta, cantidad); 
+        JOptionPane.showMessageDialog(this, "Producto agregado: " + oferta.getNombre());
     }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Descripcion_producto;
+    private javax.swing.JLabel Descuento;
     private javax.swing.JLabel Imagen;
     private javax.swing.JLabel Nombre_producto;
     private javax.swing.JPanel Panel_botones;
     private javax.swing.JLabel Precio;
+    private javax.swing.JLabel Precio_Anterior;
     private javax.swing.JLabel Txt_cantidad;
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_mas;

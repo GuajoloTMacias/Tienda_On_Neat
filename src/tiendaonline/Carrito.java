@@ -78,7 +78,6 @@ public class Carrito {
                             producto.getDescripcion(),
                             producto.getImagen(),
                             producto.getPrecio(),
-                            producto.getPrecioMayoreo(),
                             producto.getCantidad(),
                             producto.getDimensiones(),
                             producto.getCategoria()

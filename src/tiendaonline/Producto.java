@@ -7,16 +7,14 @@ public class Producto implements Serializable{
     private String descripcion;
     private String url_imagen;
     private double precio;
-    private double precioMayoreo;
     private int cantidad;
     private String dimensiones; 
     private String categoria;
 
-    public Producto(String nombre, String descripcion, String url_imagen, double precio, double precioMayoreo, int cantidad, String dimensiones, String categoria) {
+    public Producto(String nombre, String descripcion, String url_imagen, double precio, int cantidad, String dimensiones, String categoria) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.precioMayoreo = precioMayoreo;
         this.cantidad = cantidad;
         this.dimensiones = dimensiones;
         this.url_imagen = url_imagen;
@@ -33,10 +31,6 @@ public class Producto implements Serializable{
 
     public double getPrecio() {
         return precio;
-    }
-
-    public double getPrecioMayoreo() {
-        return precioMayoreo;
     }
 
     public int getCantidad() {
@@ -60,4 +54,3 @@ public class Producto implements Serializable{
     }
 
 }
-

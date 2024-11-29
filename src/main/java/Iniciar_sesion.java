@@ -150,12 +150,9 @@ public class Iniciar_sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_Txt_usuarioActionPerformed
 
     private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
-        
         Homepage_Inicio_sesion newpagina = new Homepage_Inicio_sesion();
         newpagina.setVisible(true);
-        this.dispose();
-        
-        
+        this.dispose();      
     }//GEN-LAST:event_btn_aceptarActionPerformed
 
     private void btn_crear_cuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crear_cuentaActionPerformed
