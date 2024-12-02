@@ -1,3 +1,12 @@
+package main.java;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import tiendaonline.Registrado;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -44,7 +53,6 @@ public class Registrarse extends javax.swing.JFrame {
         btn_regresar_registro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(400, 600));
         setMinimumSize(new java.awt.Dimension(400, 600));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -162,12 +170,65 @@ public class Registrarse extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    
     private void btn_siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_siguienteActionPerformed
+    // Recuperar los datos de los campos de texto
+    String nombre = txt_nombre.getText().trim();
+    String apellidoPaterno = txt_apellido_paterno.getText().trim();
+    String apellidoMaterno = txt_apellido_materno.getText().trim();
+    String nombreUsuario = txt_nombre_usuario.getText().trim();
+    String contrasena = txt_contraseña.getText().trim();
+    String ciudad = txt_ciudad.getText().trim();
+    String numeroTelefono = txt_numero_telefono.getText().trim();
+
+    // Validaciones de los campos
+    if (nombre.isEmpty() || apellidoPaterno.isEmpty() || apellidoMaterno.isEmpty() ||
+        nombreUsuario.isEmpty() || contrasena.isEmpty() || ciudad.isEmpty() || numeroTelefono.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+        return;
+    }
+
+    if (!nombre.matches("[a-zA-Z\\s]+") || !apellidoPaterno.matches("[a-zA-Z\\s]+") || !apellidoMaterno.matches("[a-zA-Z\\s]+")) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El nombre y los apellidos solo deben contener letras.");
+        return;
+    }
+
+    if (!numeroTelefono.matches("[0-9]+")) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El número de teléfono solo debe contener dígitos.");
+        return;
+    }
+
+    // Validar duplicidad del nombre de usuario
+    if (esUsuarioDuplicado(nombreUsuario)) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El nombre de usuario ya está en uso. Elija otro.");
+        return;
+    }
+
+    // Crear el objeto del usuario registrado
+    Registrado nuevoUsuario = new Registrado(
+        nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasena, ciudad, numeroTelefono
+    );
+
+    // Guardar el usuario en el archivo
+    if (guardarEnArchivo(nuevoUsuario)) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Usuario registrado con éxito.");
+
+        // Ir a la pantalla de datos bancarios
         Datos_Bancarios newpagina = new Datos_Bancarios();
         newpagina.setVisible(true);
         this.dispose();
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al guardar el usuario. Intente nuevamente.");
+    }
     }//GEN-LAST:event_btn_siguienteActionPerformed
 
+    
+    
+    
+    
+    
     private void btn_regresar_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresar_registroActionPerformed
         Homepage newpagina = new Homepage();
         newpagina.setVisible(true);
@@ -228,4 +289,34 @@ public class Registrarse extends javax.swing.JFrame {
     private javax.swing.JTextField txt_nombre_usuario;
     private javax.swing.JTextField txt_numero_telefono;
     // End of variables declaration//GEN-END:variables
+
+public static boolean guardarEnArchivo(Registrado nuevoUsuario) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("usuarios.txt", true))) {
+        // Formato esperado en el archivo
+        writer.write(nuevoUsuario.nombre + "," + nuevoUsuario.apellidoPaterno + "," +
+                     nuevoUsuario.apellidoMaterno + "," + nuevoUsuario.nombreUsuario + "," +
+                     nuevoUsuario.contrasena + "," + nuevoUsuario.ciudad + "," + nuevoUsuario.telefono);
+        writer.newLine(); // Agregar nueva línea
+        return true;
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return false;
 }
+
+    private boolean esUsuarioDuplicado(String nombreUsuario) {
+       try (BufferedReader reader = new BufferedReader(new FileReader("usuarios.txt"))) {
+        String linea;
+        while ((linea = reader.readLine()) != null) {
+            String[] partes = linea.split(",");
+            if (partes.length >= 4 && partes[3].equalsIgnoreCase(nombreUsuario)) {
+                return true; // Usuario encontrado
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return false; // Usuario no encontrado
+    }
+}
+

@@ -1,3 +1,10 @@
+package main.java;
+
+import tiendaonline.Registrado;
+import tiendaonline.Sesion;
+import tiendaonline.Tarjeta;
+import tiendaonline.Usuario;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -7,13 +14,35 @@
  *
  * @author gusta_000
  */
-public class Configuracion extends javax.swing.JFrame {
-
+public class Configuracion extends javax.swing.JFrame { 
+    private Registrado usuarioRegistrado; // Variable para almacenar el usuario registrado
     /**
      * Creates new form Configuracion
      */
     public Configuracion() {
-        initComponents();
+    initComponents();
+
+    // Obtener el usuario actual desde la clase Sesion
+    Usuario usuarioActual = Sesion.getUsuarioActual();
+
+    // Verificar si el usuario está logueado y es del tipo Registrado
+    if (usuarioActual instanceof Registrado) {
+        usuarioRegistrado = (Registrado) usuarioActual;
+
+        // Mostrar los datos del usuario en los JLabel correspondientes
+        nombre.setText(usuarioRegistrado.nombre); // Mostrar el nombre
+        apellido_paterno.setText(usuarioRegistrado.apellidoPaterno); 
+        apellido_materno.setText(usuarioRegistrado.apellidoMaterno); 
+        nombre_usuario.setText(usuarioRegistrado.nombreUsuario); 
+        contraseña.setText(usuarioRegistrado.contrasena); 
+
+          // Tarjetas
+        // tarjeta_puntos.setText("Ejemplo de puntos"); 
+        // Tarjeta.setText("Ejemplo de tarjeta de débito/crédito");
+    } else {
+        // Si no hay usuario logueado, mostrar un mensaje o limpiar los campos
+        javax.swing.JOptionPane.showMessageDialog(this, "No hay un usuario logueado.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
     }
 
     /**
@@ -270,3 +299,14 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel tarjeta_puntos;
     // End of variables declaration//GEN-END:variables
 }
+
+    class InicioSesion {
+
+        public InicioSesion() {
+        }
+
+        private void setVisible(boolean b) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+    }
+

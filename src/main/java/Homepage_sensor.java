@@ -1,7 +1,10 @@
+package main.java;
+
 
 import java.util.List;
 import tiendaonline.PersistenciaProducto;
 import tiendaonline.Producto;
+
 
 
 public class Homepage_sensor extends javax.swing.JFrame {
@@ -232,7 +235,8 @@ public class Homepage_sensor extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_iniciar_sesion_categoriasActionPerformed
 
     private void btn_Registrate_categoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Registrate_categoriasActionPerformed
-        Registrarse newpagina = new Registrarse();
+        Registrarse newpagina;
+        newpagina = new Registrarse();
         newpagina.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_Registrate_categoriasActionPerformed

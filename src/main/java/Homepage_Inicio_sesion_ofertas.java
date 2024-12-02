@@ -1,8 +1,13 @@
+package main.java;
+
 
 import java.util.List;
 import main.java.Producto_panel_oferta;
 import tiendaonline.PersistenciaProducto;
 import tiendaonline.Oferta;
+import tiendaonline.Registrado;
+import tiendaonline.Sesion;
+import tiendaonline.Usuario;
 
 
 public class Homepage_Inicio_sesion_ofertas extends javax.swing.JFrame {
@@ -10,6 +15,14 @@ public class Homepage_Inicio_sesion_ofertas extends javax.swing.JFrame {
    
     public Homepage_Inicio_sesion_ofertas() {
         initComponents();
+        
+    // Obtener el usuario en sesión
+    Usuario usuarioActual = Sesion.getUsuarioActual(); // Utilizamos el método ya existente
+    if (usuarioActual instanceof Registrado) { // Verificamos que sea del tipo Registrado
+        Registrado registrado = (Registrado) usuarioActual;
+        jLabel1.setText("Bienvenido, " + registrado.nombreUsuario); // Actualiza el texto de jLabel1
+    }
+    
         // Cargar ofertas desde el archivo ofertas.bin
         List<Oferta> ofertas = PersistenciaProducto.cargarOfertas();
         if (ofertas.isEmpty()) {

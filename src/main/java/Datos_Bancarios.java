@@ -1,3 +1,14 @@
+package main.java;
+
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import tiendaonline.Credito;
+import tiendaonline.Debito;
+import tiendaonline.Puntos;
+import tiendaonline.Tarjeta;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,6 +25,8 @@ public class Datos_Bancarios extends javax.swing.JFrame {
      */
     public Datos_Bancarios() {
         initComponents();
+        // Establecer las opciones del JComboBox
+    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crédito", "Débito" }));
     }
 
     /**
@@ -152,9 +165,94 @@ public class Datos_Bancarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_regesar_datosActionPerformed
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-        Homepage_Inicio_sesion newpagina = new Homepage_Inicio_sesion();
-        newpagina.setVisible(true);
-        this.dispose();
+      // Obtener los datos ingresados
+    String titular = jTextField1.getText();
+    String numeroTarjeta = jTextField2.getText();
+    String fechaNacimiento = jTextField3.getText();
+    String cvv = jTextField4.getText();
+    String tipoTarjeta = (String) jComboBox1.getSelectedItem();
+
+    // Validar que no estén vacíos
+    if (titular.isEmpty() || numeroTarjeta.isEmpty() || fechaNacimiento.isEmpty() || cvv.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Validación del nombre del titular (no debe contener números)
+    if (!titular.matches("[a-zA-Z\\s]+")) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El nombre del titular no debe contener números.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Validación del número de tarjeta (13-19 dígitos)
+    if (!numeroTarjeta.matches("\\d{13,19}")) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El número de tarjeta debe tener entre 13 y 19 dígitos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Validación del CVV (3-4 dígitos)
+    if (!cvv.matches("\\d{3,4}")) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El CVV debe tener 3 o 4 dígitos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Validación de la fecha de nacimiento (Formato: dd/mm/yyyy)
+    try {
+        String[] fechaParts = fechaNacimiento.split("/");
+        if (fechaParts.length != 3) {
+            throw new Exception("Formato de fecha incorrecto.");
+        }
+        int dia = Integer.parseInt(fechaParts[0]);
+        int mes = Integer.parseInt(fechaParts[1]);
+        int anio = Integer.parseInt(fechaParts[2]);
+
+        // Validar si la fecha es válida
+        if (mes < 1 || mes > 12 || dia < 1 || dia > 31 || (anio < 1900 || anio > 2004)) {
+            throw new Exception("Fecha de nacimiento inválida.");
+        }
+
+        // Comprobar si la fecha es en el futuro
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        int currentYear = cal.get(java.util.Calendar.YEAR);
+        int currentMonth = cal.get(java.util.Calendar.MONTH) + 1;
+        int currentDay = cal.get(java.util.Calendar.DAY_OF_MONTH);
+
+        if (anio > currentYear || (anio == currentYear && mes > currentMonth) || (anio == currentYear && mes == currentMonth && dia > currentDay)) {
+            throw new Exception("La fecha de nacimiento no puede ser en el futuro.");
+        }
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Fecha de nacimiento inválida. Formato correcto: dd/mm/yyyy.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Crear el objeto de tarjeta correspondiente
+    Tarjeta tarjeta;
+    switch (tipoTarjeta) {
+        case "Crédito":
+            tarjeta = new Credito(titular, numeroTarjeta, fechaNacimiento, cvv);
+            break;
+        case "Débito":
+            tarjeta = new Debito(titular, numeroTarjeta, fechaNacimiento, cvv);
+            break;
+        default:
+            javax.swing.JOptionPane.showMessageDialog(this, "Selecciona un tipo de tarjeta válido.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+    }
+
+    // Guardar los datos en un archivo en una sola línea
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("datos_bancarios.txt", true))) {
+        writer.write(titular + "," + numeroTarjeta + "," + fechaNacimiento + "," + cvv + "," + tipoTarjeta);
+        writer.newLine();
+        javax.swing.JOptionPane.showMessageDialog(this, "Datos bancarios guardados correctamente.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    } catch (IOException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar los datos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+
+    // Ir a la siguiente ventana
+    Homepage_Inicio_sesion newpagina = new Homepage_Inicio_sesion();
+    newpagina.setVisible(true);
+    this.dispose();
+
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     /**
