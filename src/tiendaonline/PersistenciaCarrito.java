@@ -1,46 +1,148 @@
 
 package tiendaonline;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.io.*;
+import java.util.*;
+import javax.swing.JOptionPane;
+import main.java.Producto_panel;
+import main.java.Producto_panel_oferta;
 
 public class PersistenciaCarrito {
     private static final String ARCHIVO_CARRITOS = "carrito.bin";
+    private static final String ARCHIVO_OFERTAS = "carritoOfertas.bin";
 
-    // Guardar los carritos de todos los usuarios
-    public void guardarCarritos(Map<String, List<Producto>> carritos) {
+    // Cargar carritos
+    public static Map<String, List<Producto>> cargarCarritos() {
+        Map<String, List<Producto>> usuariosCarritos = new HashMap<>();
+        File archivo = new File(ARCHIVO_CARRITOS);
+        if (archivo.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
+                usuariosCarritos = (Map<String, List<Producto>>) ois.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Error al cargar los carritos: " + e.getMessage());
+            }
+        }
+        return usuariosCarritos;
+    }
+
+    // Guardar carritos
+    public static void guardarCarritos(Map<String, List<Producto>> usuariosCarritos) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ARCHIVO_CARRITOS))) {
-            oos.writeObject(carritos);
+            oos.writeObject(usuariosCarritos);
         } catch (IOException e) {
+            System.out.println("Error al guardar los carritos: " + e.getMessage());
         }
     }
 
-    // Cargar carritos de todos los usuarios
-    @SuppressWarnings("unchecked")
-    public Map<String, List<Producto>> cargarCarritos() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ARCHIVO_CARRITOS))) {
-            return (Map<String, List<Producto>>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            return new HashMap<>();
+    // Cargar carritos ofertas
+    public static Map<String, List<Oferta>> cargarOfertas() {
+        Map<String, List<Oferta>> usuariosOfertas = new HashMap<>();
+        File archivo = new File(ARCHIVO_OFERTAS);
+        if (archivo.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
+                usuariosOfertas = (Map<String, List<Oferta>>) ois.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Error al cargar las ofertas: " + e.getMessage());
+            }
+        }
+        return usuariosOfertas;
+    }
+
+    // Guardar carritos ofertas
+    public static void guardarOfertas(Map<String, List<Oferta>> usuariosOfertas) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ARCHIVO_OFERTAS))) {
+            oos.writeObject(usuariosOfertas);
+        } catch (IOException e) {
+            System.out.println("Error al guardar las ofertas: " + e.getMessage());
         }
     }
 
-    // Guardar el carrito de un usuario
-    public void guardarCarrito(String idUsuario, List<Producto> carrito) {
-        Map<String, List<Producto>> carritos = cargarCarritos();
-        carritos.put(idUsuario, carrito);
-        guardarCarritos(carritos);
+    // Agregar un producto
+    public static void agregarProductoAlCarrito(Sesion usuario, Producto producto, Producto_panel productopanel) {
+        int cantidadSolicitada = productopanel.getCantidad();
+
+        List<Producto> productos = PersistenciaProducto.cargarProductos();
+        Producto productoSeleccionado = null;
+
+        for (Producto p : productos) {
+            if (p.equals(producto)) {
+                productoSeleccionado = p;
+                break;
+            }
+        }
+        if (productoSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "Producto no encontrado.");
+            return;
+        }
+
+        // Verificar stock
+        if (productoSeleccionado.getCantidad() >= cantidadSolicitada) {
+            productoSeleccionado.setCantidad(productoSeleccionado.getCantidad() - cantidadSolicitada);
+            PersistenciaProducto.guardarProductos(productos);
+
+            Map<String, List<Producto>> usuariosCarritos = cargarCarritos();
+            List<Producto> carrito = usuariosCarritos.getOrDefault(usuario.getUsuarioActual(), new ArrayList<>());
+
+            for (int i = 0; i < cantidadSolicitada; i++) {
+                carrito.add(productoSeleccionado);
+            }
+
+            usuariosCarritos.put(usuario.getUsuarioActual(), carrito);
+            guardarCarritos(usuariosCarritos);
+            JOptionPane.showMessageDialog(null, "Producto agregado al carrito con éxito.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay suficiente stock disponible.");
+        }
     }
 
-    // Cargar el carrito de un usuario
-    public List<Producto> cargarCarrito(String idUsuario) {
-        Map<String, List<Producto>> carritos = cargarCarritos();
-        return carritos.getOrDefault(idUsuario, null);
+    // Agregar una oferta al carrito
+    public static void agregarOfertaAlCarrito(Sesion usuario, Oferta oferta, Producto_panel_oferta productopanelOferta) {
+        int cantidadSolicitada = productopanelOferta.getCantidad();
+
+        List<Oferta> ofertas = PersistenciaProducto.cargarOfertas();
+        Producto productoSeleccionado = null;
+
+        for (Oferta o : ofertas) {
+            if (o.equals(ofertas)) {
+                productoSeleccionado = o;
+                break;
+            }
+        }
+        if (productoSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "Producto no encontrado.");
+            return;
+        }
+        
+        if (oferta.getCantidad() >= cantidadSolicitada) {
+            oferta.setCantidad(oferta.getCantidad() - cantidadSolicitada);
+
+            Map<String, List<Oferta>> usuariosOfertas = cargarOfertas();
+            List<Oferta> carritoOfertas = usuariosOfertas.getOrDefault(usuario.getUsuarioActual(), new ArrayList<>());
+
+            for (int i = 0; i < cantidadSolicitada; i++) {
+                carritoOfertas.add(oferta);
+            }
+
+            usuariosOfertas.put(usuario.getUsuarioActual(), carritoOfertas);
+            guardarOfertas(usuariosOfertas);
+            JOptionPane.showMessageDialog(null, "Oferta agregada al carrito con éxito.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay suficiente stock disponible en la oferta.");
+        }
     }
+
+    // Obtener carrito de un usuario
+    public static List<Producto> obtenerCarritoUsuario(String nombreUsuario) {
+        Map<String, List<Producto>> usuariosCarritos = cargarCarritos();
+        return usuariosCarritos.getOrDefault(nombreUsuario, new ArrayList<>());
+    }
+
+    // Obtener  carrito de un usuario
+    public static List<Oferta> obtenerOfertasUsuario(String nombreUsuario) {
+        Map<String, List<Oferta>> usuariosOfertas = cargarOfertas();
+        return usuariosOfertas.getOrDefault(nombreUsuario, new ArrayList<>());
+    }
+    
+    
 }

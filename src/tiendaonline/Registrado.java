@@ -76,6 +76,12 @@ public class Registrado extends Usuario {
         }
         return false;
     }
+    
+    public String getNombreUsuario() {
+        return this.nombreUsuario;
+    }
+
+    
 
     @Override
     public String toString() {

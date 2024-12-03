@@ -12,6 +12,9 @@ import java.awt.GridLayout;
 import java.io.InputStream;
 import java.util.List;
 import tiendaonline.Oferta;
+import tiendaonline.PersistenciaCarrito;
+import tiendaonline.Registrado;
+import tiendaonline.Sesion;
 
 public class Producto_panel_oferta extends javax.swing.JPanel {
 
@@ -207,16 +210,30 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-        agregarProducto();
+        agregarOferta();
     }//GEN-LAST:event_btn_agregarActionPerformed
 
-    private void agregarProducto() {
-        
+    private void agregarOferta() {
+        Sesion usuarioLogueado = (Sesion) Sesion.getUsuarioActual();
+
+        if (usuarioLogueado == null) {
+            JOptionPane.showMessageDialog(this, "Inicia sesión para agregar ofertas al carrito.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            PersistenciaCarrito.agregarOfertaAlCarrito(usuarioLogueado, oferta, this);
+            JOptionPane.showMessageDialog(this, "Oferta agregada al carrito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al agregar la oferta al carrito: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public int getCantidad() {
         String cant = Txt_cantidad.getText();
-        int cantidad = Integer.parseInt(cant);
-        
-        carrito.agregarProducto(oferta, cantidad); 
-        JOptionPane.showMessageDialog(this, "Producto agregado: " + oferta.getNombre());
+        int cantidad = 0;
+        cantidad = Integer.parseInt(cant);
+        return cantidad;
     }
     
 

@@ -71,7 +71,7 @@ public class Registrarse extends javax.swing.JFrame {
         jLabel5.setText("Nombre de usuario:");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setText("Contraceña:");
+        jLabel6.setText("Contraseña:");
 
         btn_siguiente.setText("Siguiente");
         btn_siguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +84,7 @@ public class Registrarse extends javax.swing.JFrame {
         jLabel7.setText("Ciudad:");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel8.setText("Numero de telefono:");
+        jLabel8.setText("Número de teléfono:");
 
         btn_regresar_registro.setText("Regresar");
         btn_regresar_registro.addActionListener(new java.awt.event.ActionListener() {

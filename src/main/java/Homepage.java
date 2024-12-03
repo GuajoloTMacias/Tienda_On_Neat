@@ -55,7 +55,7 @@ public class Homepage extends javax.swing.JFrame {
             }
         });
 
-        btn_iniciar_sesion.setText("Iniciar sesion");
+        btn_iniciar_sesion.setText("Iniciar sesión");
         btn_iniciar_sesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_iniciar_sesionActionPerformed(evt);

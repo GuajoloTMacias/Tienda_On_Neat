@@ -13,7 +13,10 @@ import tiendaonline.Producto;
 import java.awt.GridLayout;
 import java.io.InputStream;
 import java.util.List;
+import tiendaonline.PersistenciaCarrito;
 import tiendaonline.PersistenciaProducto;
+import tiendaonline.Registrado;
+import tiendaonline.Sesion;
 
 public class Producto_panel extends javax.swing.JPanel {
 
@@ -303,14 +306,30 @@ public class Producto_panel extends javax.swing.JPanel {
         agregarProducto();
     }//GEN-LAST:event_btn_agregarActionPerformed
 
+    
     private void agregarProducto() {
-        
-        String cant = Txt_cantidad.getText();
-        int cantidad = Integer.parseInt(cant);
-        
-        carrito.agregarProducto(producto, cantidad); 
-        JOptionPane.showMessageDialog(this, "Producto agregado: " + producto.getNombre());
+        Registrado usuarioLogueado = (Registrado) Sesion.getUsuarioActual();
+
+        if (usuarioLogueado == null) {
+            JOptionPane.showMessageDialog(this, "Inicia sesión para agregar productos al carrito.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            PersistenciaCarrito.agregarProductoAlCarrito(usuarioLogueado, producto, this);
+            JOptionPane.showMessageDialog(this, "Producto agregado al carrito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al agregar el producto al carrito: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
+    
+    
+    public int getCantidad() {
+        String cant = Txt_cantidad.getText();
+        int cantidad = 0;
+        cantidad = Integer.parseInt(cant);
+        return cantidad;
+    }
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

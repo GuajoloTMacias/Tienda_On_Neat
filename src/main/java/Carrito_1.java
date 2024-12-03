@@ -1,21 +1,24 @@
 package main.java;
 
 
+import java.util.List;
+import javax.swing.JOptionPane;
 import tiendaonline.Carrito;
+import tiendaonline.PersistenciaCarrito;
 import tiendaonline.Producto;
+import tiendaonline.Registrado;
+import tiendaonline.Sesion;
 
 public class Carrito_1 extends javax.swing.JFrame {
     double envio = 89.0;
+    private String nombreUsuario; 
 
-    public Carrito_1() {
+    public Carrito_1(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;  // Asignar el nombre del usuario
         initComponents();
-        
         inicializarTotales();
+        cargarProductosCarrito();
         
-        //cargarProductosUsuario();
-        //mostrarProductosUsuario();
-        
-
     }
 
     @SuppressWarnings("unchecked")
@@ -296,7 +299,49 @@ public class Carrito_1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane_Productos;
     // End of variables declaration//GEN-END:variables
 
+    private void mostrarProductos() {
+        // Usuario actual
+        Registrado usuarioLogueado = (Registrado) Sesion.getUsuarioActual();
+        if (usuarioLogueado == null) {
+            JOptionPane.showMessageDialog(this, "Inicia sesión para tener un carrito.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Carrito usuario
+        String nombreUsuario = usuarioLogueado.getNombreUsuario();
+        List<Producto> carrito = PersistenciaCarrito.obtenerCarritoUsuario(nombreUsuario);
+
+        Panel_Productos_Seleccionados.removeAll();
+
+        // Agregar productos y establecer datos
+        for (Producto producto : carrito) {
+            panel_producto_agregado panelProducto = new panel_producto_agregado();
+            
+            //
+            panelProducto.setNombreProducto(producto.getNombre());
+            panelProducto.setPrecioProducto(String.format("$%.2f", producto.getPrecio()));
+            panelProducto.setCantidadProducto(String.valueOf(producto.getCantidad()));
+
+  
+            Panel_Productos_Seleccionados.add(panelProducto);
+        }
+
+        Panel_Productos_Seleccionados.revalidate();
+        Panel_Productos_Seleccionados.repaint();
+    }
     
+    private void cargarProductosCarrito() {
+        // Obtener productos del carrito del usuario
+        List<Producto> productosCarrito = PersistenciaCarrito.obtenerCarritoUsuario(nombreUsuario);
+        if (productosCarrito.isEmpty()) {
+            System.out.println("No tienes productos en tu carrito.");
+        } else {
+ 
+            Producto_panel.Mostrar_productos(productosCarrito, this.Panel_Productos_Seleccionados, this);
+        }
+    }
+
+  
     private void inicializarTotales() {
         calcularSubTotal();
         calcularTotal();  
@@ -304,34 +349,22 @@ public class Carrito_1 extends javax.swing.JFrame {
     }
     
     public void calcularSubTotal() {
-        Carrito carrito = Carrito.getInstance("usuario123"); // Obtén la instancia del carrito
-        double SubTotal = carrito.calcularTotal();
-        String SubTotal_txt = String.format("%.2f", SubTotal);
-        TF_Total.setText(SubTotal_txt);
+        Registrado usuarioLogueado = (Registrado) Sesion.getUsuarioActual();
+        if (usuarioLogueado == null) return;
+
+        String nombreUsuario = usuarioLogueado.getNombreUsuario();
+        List<Producto> carrito = PersistenciaCarrito.obtenerCarritoUsuario(nombreUsuario);
+
+        double subtotal = carrito.stream().mapToDouble(p -> p.getPrecio() * p.getCantidad()).sum();
+        TF_SubTotal.setText(String.format("%.2f", subtotal));
     }
-    
+
     public double calcularTotal() {
-        Carrito carrito = Carrito.getInstance("usuario123"); // Obtén la instancia del carrito
-        double Total = carrito.calcularTotal() + envio;
-        String Total_txt = String.format("%.2f", Total);
-        TF_Total.setText(Total_txt);
-        return Total;
+        calcularSubTotal();
+        double total = Double.parseDouble(TF_SubTotal.getText()) + envio;
+        TF_Total.setText(String.format("%.2f", total));
+        return total;
     }
-
-    /*
-    
-    private void cargarProductosUsuario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void mostrarProductosUsuario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-*/
-
-    
-
-    
  
 }
 
