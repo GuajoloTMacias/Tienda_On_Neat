@@ -13,8 +13,9 @@ public class Carrito_1 extends javax.swing.JFrame {
     double envio = 89.0;
     private String nombreUsuario; 
 
-    public Carrito_1(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;  // Asignar el nombre del usuario
+    public Carrito_1() {
+        this.nombreUsuario = Sesion.getUsuarioActual().nombreUsuario;
+          // Asignar el nombre del usuario
         initComponents();
         inicializarTotales();
         cargarProductosCarrito();

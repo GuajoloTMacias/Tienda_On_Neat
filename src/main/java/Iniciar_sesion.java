@@ -171,7 +171,7 @@ public class Iniciar_sesion extends javax.swing.JFrame {
     try (BufferedReader reader = new BufferedReader(new FileReader(RUTA_ARCHIVO))) { 
         String linea;
         boolean encontrado = false;
-        Usuario usuarioLogueado = null;
+        Registrado usuarioLogueado = null;
 
         // Leer línea por línea el archivo de usuarios
         while ((linea = reader.readLine()) != null) {

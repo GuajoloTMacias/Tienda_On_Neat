@@ -16,7 +16,7 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
         initComponents();
         
     // Obtener el usuario en sesión
-    Usuario usuarioActual = Sesion.getUsuarioActual(); // Utilizamos el método ya existente
+    Registrado usuarioActual = Sesion.getUsuarioActual(); // Utilizamos el método ya existente
     if (usuarioActual instanceof Registrado) { // Verificamos que sea del tipo Registrado
         Registrado registrado = (Registrado) usuarioActual;
         jLabel1.setText("Bienvenido, " + registrado.nombreUsuario); // Actualiza el texto de jLabel1

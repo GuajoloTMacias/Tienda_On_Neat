@@ -4,6 +4,7 @@ package main.java;
 import java.util.List;
 import tiendaonline.PersistenciaProducto;
 import tiendaonline.Producto;
+import tiendaonline.Sesion;
 
 public class Homepage_Inicio_sesion_arduino extends javax.swing.JFrame {
 

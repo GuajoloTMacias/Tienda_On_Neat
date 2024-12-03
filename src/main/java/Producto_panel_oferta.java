@@ -214,7 +214,7 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void agregarOferta() {
-        Sesion usuarioLogueado = (Sesion) Sesion.getUsuarioActual();
+        Registrado usuarioLogueado = Sesion.getUsuarioActual();
 
         if (usuarioLogueado == null) {
             JOptionPane.showMessageDialog(this, "Inicia sesión para agregar ofertas al carrito.", "Error", JOptionPane.ERROR_MESSAGE);

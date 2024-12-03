@@ -1,10 +1,10 @@
 package tiendaonline;
 
 public class Sesion {
-    private static Usuario usuarioActual;  // Usuario logueado
+    private static Registrado usuarioActual;  // Usuario logueado
 
     // Método para obtener el usuario logueado
-    public static Usuario getUsuarioActual() {
+    public static Registrado getUsuarioActual() {
         return usuarioActual;
     }
 
@@ -19,11 +19,8 @@ public class Sesion {
     }
 
     // Método para establecer el usuario logueado
-    public static void setUsuarioActual(Usuario usuario) {
+    public static void setUsuarioActual(Registrado usuario) {
         usuarioActual = usuario;
     }
 
-    public static Registrado getUsuarioActivo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

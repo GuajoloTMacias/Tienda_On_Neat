@@ -30,10 +30,11 @@ public class Producto_panel extends javax.swing.JPanel {
     
     private Carrito carrito;
     private Producto producto;
+    private int cantidad = 0;
     
-    public Producto_panel(String nombre, String descripcion, String url_imagen, double precio) {
+    public Producto_panel(String nombre, String descripcion, String url_imagen, double precio, Producto producto) {
         initComponents();
-                
+        this.producto = producto;
         this.Nombre_producto.setText(nombre);
         this.Descripcion_producto.setText("<html><p style='width:150px;'>" + descripcion + "</p></html>");
 
@@ -66,7 +67,7 @@ public class Producto_panel extends javax.swing.JPanel {
 
         // Agregar los productos 
         for (Producto p : productos) {
-            Producto_panel panel = new Producto_panel(p.getNombre(), p.getDescripcion(), p.getImagen(), p.getPrecio());
+            Producto_panel panel = new Producto_panel(p.getNombre(), p.getDescripcion(), p.getImagen(), p.getPrecio(),p);
             panel.setSize(250, 350); 
             Contenedor.add(panel);  
         }
@@ -93,7 +94,7 @@ public class Producto_panel extends javax.swing.JPanel {
                     p.getNombre(),
                     p.getDescripcion(),
                     p.getImagen(), 
-                    p.getPrecio()
+                    p.getPrecio(),p
             );
             productoPanel.setSize(250, 350);
             Contenedor.add(productoPanel);
@@ -119,7 +120,7 @@ public class Producto_panel extends javax.swing.JPanel {
                     p.getNombre(),
                     p.getDescripcion(),
                     p.getImagen(), 
-                    p.getPrecio()
+                    p.getPrecio(),p
             );
             productoPanel.setSize(250, 350);
             Contenedor.add(productoPanel);
@@ -146,7 +147,7 @@ public class Producto_panel extends javax.swing.JPanel {
                     p.getNombre(),
                     p.getDescripcion(),
                     p.getImagen(), 
-                    p.getPrecio()
+                    p.getPrecio(),p
             );
             productoPanel.setSize(250, 350);
             Contenedor.add(productoPanel);
@@ -173,7 +174,7 @@ public class Producto_panel extends javax.swing.JPanel {
                     p.getNombre(),
                     p.getDescripcion(),
                     p.getImagen(), 
-                    p.getPrecio()
+                    p.getPrecio(),p
             );
             productoPanel.setSize(250, 350);
             Contenedor.add(productoPanel);
@@ -218,8 +219,18 @@ public class Producto_panel extends javax.swing.JPanel {
         Panel_botones.setPreferredSize(new java.awt.Dimension(190, 55));
 
         btn_menos.setText("-");
+        btn_menos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_menosActionPerformed(evt);
+            }
+        });
 
         btn_mas.setText("+");
+        btn_mas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_masActionPerformed(evt);
+            }
+        });
 
         Txt_cantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Txt_cantidad.setText(" 0");
@@ -306,9 +317,23 @@ public class Producto_panel extends javax.swing.JPanel {
         agregarProducto();
     }//GEN-LAST:event_btn_agregarActionPerformed
 
+    private void btn_masActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_masActionPerformed
+        // TODO add your handling code here:
+        cantidad++;
+        this.Txt_cantidad.setText(String.valueOf(this.cantidad));
+    }//GEN-LAST:event_btn_masActionPerformed
+
+    private void btn_menosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menosActionPerformed
+        // TODO add your handling code here:
+        if(cantidad > 0){
+                cantidad--;
+        }
+        this.Txt_cantidad.setText(String.valueOf(this.cantidad));
+    }//GEN-LAST:event_btn_menosActionPerformed
+
     
     private void agregarProducto() {
-        Registrado usuarioLogueado = (Registrado) Sesion.getUsuarioActual();
+        Registrado usuarioLogueado = Sesion.getUsuarioActual();
 
         if (usuarioLogueado == null) {
             JOptionPane.showMessageDialog(this, "Inicia sesión para agregar productos al carrito.", "Error", JOptionPane.ERROR_MESSAGE);

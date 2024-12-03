@@ -59,18 +59,20 @@ public class PersistenciaCarrito {
     }
 
     // Agregar un producto
-    public static void agregarProductoAlCarrito(Sesion usuario, Producto producto, Producto_panel productopanel) {
+    public static void agregarProductoAlCarrito(Registrado usuario, Producto producto, Producto_panel productopanel) {
         int cantidadSolicitada = productopanel.getCantidad();
 
         List<Producto> productos = PersistenciaProducto.cargarProductos();
         Producto productoSeleccionado = null;
-
+// Asginar el paramtetro de producto en producto seleccionado
+        productoSeleccionado = producto;
+        /*
         for (Producto p : productos) {
             if (p.equals(producto)) {
                 productoSeleccionado = p;
                 break;
             }
-        }
+        }*/
         if (productoSeleccionado == null) {
             JOptionPane.showMessageDialog(null, "Producto no encontrado.");
             return;
@@ -82,13 +84,13 @@ public class PersistenciaCarrito {
             PersistenciaProducto.guardarProductos(productos);
 
             Map<String, List<Producto>> usuariosCarritos = cargarCarritos();
-            List<Producto> carrito = usuariosCarritos.getOrDefault(usuario.getUsuarioActual(), new ArrayList<>());
+            List<Producto> carrito = usuariosCarritos.getOrDefault(usuario, new ArrayList<>());
 
             for (int i = 0; i < cantidadSolicitada; i++) {
                 carrito.add(productoSeleccionado);
             }
 
-            usuariosCarritos.put(usuario.getUsuarioActual(), carrito);
+            usuariosCarritos.put(usuario.nombreUsuario, carrito);
             guardarCarritos(usuariosCarritos);
             JOptionPane.showMessageDialog(null, "Producto agregado al carrito con éxito.");
         } else {
@@ -97,18 +99,20 @@ public class PersistenciaCarrito {
     }
 
     // Agregar una oferta al carrito
-    public static void agregarOfertaAlCarrito(Sesion usuario, Oferta oferta, Producto_panel_oferta productopanelOferta) {
+    public static void agregarOfertaAlCarrito(Registrado usuario, Oferta oferta, Producto_panel_oferta productopanelOferta) {
         int cantidadSolicitada = productopanelOferta.getCantidad();
 
         List<Oferta> ofertas = PersistenciaProducto.cargarOfertas();
         Producto productoSeleccionado = null;
-
+        productoSeleccionado = (Producto)oferta;
+/*
         for (Oferta o : ofertas) {
-            if (o.equals(ofertas)) {
+            if (o.equals(oferta)) {
                 productoSeleccionado = o;
                 break;
             }
         }
+        */
         if (productoSeleccionado == null) {
             JOptionPane.showMessageDialog(null, "Producto no encontrado.");
             return;
@@ -118,13 +122,13 @@ public class PersistenciaCarrito {
             oferta.setCantidad(oferta.getCantidad() - cantidadSolicitada);
 
             Map<String, List<Oferta>> usuariosOfertas = cargarOfertas();
-            List<Oferta> carritoOfertas = usuariosOfertas.getOrDefault(usuario.getUsuarioActual(), new ArrayList<>());
+            List<Oferta> carritoOfertas = usuariosOfertas.getOrDefault(usuario.nombreUsuario, new ArrayList<>());
 
             for (int i = 0; i < cantidadSolicitada; i++) {
                 carritoOfertas.add(oferta);
             }
 
-            usuariosOfertas.put(usuario.getUsuarioActual(), carritoOfertas);
+            usuariosOfertas.put(usuario.nombreUsuario, carritoOfertas);
             guardarOfertas(usuariosOfertas);
             JOptionPane.showMessageDialog(null, "Oferta agregada al carrito con éxito.");
         } else {
