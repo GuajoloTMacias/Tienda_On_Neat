@@ -10,7 +10,6 @@ public class Homepage_Inicio_sesion_arduino extends javax.swing.JFrame {
 
     public Homepage_Inicio_sesion_arduino() {
         initComponents();
-        // Cargar productos desde el archivo productos.bin
         List<Producto> productos = PersistenciaProducto.cargarProductos();
         if (productos.isEmpty()) {
             System.out.println("No se encontraron productos en el archivo.");

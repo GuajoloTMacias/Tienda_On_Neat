@@ -58,14 +58,12 @@ public class Producto_panel extends javax.swing.JPanel {
     
     public static void Mostrar_productos(List<Producto> productos,JPanel Contenedor, Component _repaint){
         
-        // Configurar el layout
         int columnas = 4; 
         int filas = (int) Math.ceil((double) productos.size() / columnas); 
         Contenedor.setLayout(new GridLayout(filas, columnas, 10, 10)); // Espaciado
 
         Contenedor.removeAll();
 
-        // Agregar los productos 
         for (Producto p : productos) {
             Producto_panel panel = new Producto_panel(p.getNombre(), p.getDescripcion(), p.getImagen(), p.getPrecio(),p);
             panel.setSize(250, 350); 
@@ -78,17 +76,13 @@ public class Producto_panel extends javax.swing.JPanel {
     
     public static void Mostrar_Arduino(List<Producto> productos,JPanel Contenedor, Component _repaint){     
         
-        // Agregar el filtrado por categorias
+        // Agregar filtrado por categorias
         List<Producto> productosArduino = PersistenciaProducto.filtrarPorCategoria(productos, "arduino");
-        // Configurar el layout
         int columnas = 4; 
         int filas = (int) Math.ceil((double) productosArduino.size() / columnas); 
         Contenedor.setLayout(new GridLayout(filas, columnas, 10, 10)); // Espaciado
         Contenedor.removeAll();
         
-        
-
-        // Mostrar productos arduino en el panel
         for (Producto p : productosArduino) {
             Producto_panel productoPanel = new Producto_panel(
                     p.getNombre(),
@@ -104,17 +98,13 @@ public class Producto_panel extends javax.swing.JPanel {
     }
     
     public static void Mostrar_Componente(List<Producto> productos,JPanel Contenedor, Component _repaint){     
-        
-        // Agregar el filtrado por categorias
         List<Producto> productosComponente = PersistenciaProducto.filtrarPorCategoria(productos, "componente");
 
-        // Configurar el layout
         int columnas = 4; 
         int filas = (int) Math.ceil((double) productosComponente.size() / columnas); 
         Contenedor.setLayout(new GridLayout(filas, columnas, 10, 10)); // Espaciado
         Contenedor.removeAll();
-             
-        // Mostrar productos arduino en el panel
+
         for (Producto p : productosComponente) {
             Producto_panel productoPanel = new Producto_panel(
                     p.getNombre(),
@@ -130,18 +120,14 @@ public class Producto_panel extends javax.swing.JPanel {
     }
     
     public static void Mostrar_Modulo(List<Producto> productos,JPanel Contenedor, Component _repaint){     
-        
-        // Agregar el filtrado por categorias
+
         List<Producto> productosModulo = PersistenciaProducto.filtrarPorCategoria(productos, "módulo");
 
-        // Configurar el layout
         int columnas = 4; 
         int filas = (int) Math.ceil((double) productosModulo.size() / columnas); 
         Contenedor.setLayout(new GridLayout(filas, columnas, 10, 10)); // Espaciado
         Contenedor.removeAll();
-        
-        
-        // Mostrar productos arduino en el panel
+
         for (Producto p : productosModulo) {
             Producto_panel productoPanel = new Producto_panel(
                     p.getNombre(),
@@ -157,18 +143,14 @@ public class Producto_panel extends javax.swing.JPanel {
     }
     
     public static void Mostrar_Sensor(List<Producto> productos,JPanel Contenedor, Component _repaint){     
-        
-        // Agregar el filtrado por categorias
+
         List<Producto> productosSensores = PersistenciaProducto.filtrarPorCategoria(productos, "sensor");
 
-        // Configurar el layout
         int columnas = 4; 
         int filas = (int) Math.ceil((double) productosSensores.size() / columnas); 
         Contenedor.setLayout(new GridLayout(filas, columnas, 10, 10)); // Espaciado
         Contenedor.removeAll();
-        
-        
-        // Mostrar productos arduino en el panel
+
         for (Producto p : productosSensores) {
             Producto_panel productoPanel = new Producto_panel(
                     p.getNombre(),
@@ -341,7 +323,6 @@ public class Producto_panel extends javax.swing.JPanel {
         }
 
         try {
-            // Usa PersistenciaCarrito para manejar la escritura en el archivo del carrito del usuario
             PersistenciaCarrito.agregarProductoAlCarritoTXT(producto, this.getCantidad());
             JOptionPane.showMessageDialog(this, "Producto agregado al carrito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {

@@ -9,7 +9,6 @@ public class Homepago_arduino extends javax.swing.JFrame {
 
     public Homepago_arduino() {
         initComponents();
-        // Cargar productos desde el archivo productos.bin
         List<Producto> productos = PersistenciaProducto.cargarProductos();
         if (productos.isEmpty()) {
             System.out.println("No se encontraron productos en el archivo.");

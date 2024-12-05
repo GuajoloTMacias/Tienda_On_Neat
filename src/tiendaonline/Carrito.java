@@ -15,9 +15,7 @@ public class Carrito {
     private Carrito(String usuario) {
         this.productos = new ArrayList<>();
         this.subTotalPagar = 0.0;
-        this.usuario = usuario;
-
-        
+        this.usuario = usuario;  
     }
     
     public static Carrito getInstance(String usuario) {
@@ -36,12 +34,6 @@ public class Carrito {
         return subTotalPagar;   
     }
 
-    public void eliminarProducto(Producto producto) {
-        
-    }
-    
-
-    
     public List<Producto> getProductosCarrito() {
         return productosCarrito;
     }

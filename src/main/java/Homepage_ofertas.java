@@ -12,7 +12,6 @@ public class Homepage_ofertas extends javax.swing.JFrame {
    
     public Homepage_ofertas() {
         initComponents();
-        // Cargar ofertas desde el archivo ofertas.bin
         List<Oferta> ofertas = PersistenciaProducto.cargarOfertas();
         if (ofertas.isEmpty()) {
             System.out.println("No se encontraron productos en el archivo.");

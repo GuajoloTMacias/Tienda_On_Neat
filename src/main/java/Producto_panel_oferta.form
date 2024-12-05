@@ -75,7 +75,7 @@
                   <Component id="Precio_Anterior" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Descuento" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
               <Component id="Panel_botones" min="-2" pref="35" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -137,9 +137,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btn_menos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_mas" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Txt_cantidad" alignment="3" max="32767" attributes="0"/>
                       <Component id="btn_agregar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_mas" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -155,14 +155,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_menosActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_mas">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="+"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_masActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="Txt_cantidad">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
@@ -175,6 +167,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_agregarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_mas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="+"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_masActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

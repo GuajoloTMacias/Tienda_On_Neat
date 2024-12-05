@@ -2,6 +2,9 @@ package main.java;
 
 
 import java.util.List;
+import javax.swing.JOptionPane;
+import tiendaonline.Oferta;
+import tiendaonline.PersistenciaCarrito;
 import tiendaonline.PersistenciaProducto;
 import tiendaonline.Producto;
 import tiendaonline.Registrado;
@@ -15,7 +18,6 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
     public Homepage_Inicio_sesion() {
         initComponents();
         
-    // Obtener el usuario en sesión
     Registrado usuarioActual = Sesion.getUsuarioActual(); 
     if (usuarioActual instanceof Registrado) { 
         Registrado registrado = (Registrado) usuarioActual;
@@ -269,9 +271,22 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_configurciones_inicioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Carrito_1 newpagina = new Carrito_1();
-        newpagina.setVisible(true);
-        this.dispose();
+        
+        Registrado usuarioActivo = Sesion.getUsuarioActual();
+
+        List<Producto> productosCarrito = PersistenciaCarrito.cargarCarrito();
+        List<Oferta> ofertasCarrito = PersistenciaCarrito.cargarOfertasCarrito();
+
+        if (productosCarrito.isEmpty() && ofertasCarrito.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tu carrito está vacío.");
+            return;
+        } else{
+            Carrito_1 newpagina = new Carrito_1();
+            newpagina.setVisible(true);
+            this.dispose();
+        }
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
  
     

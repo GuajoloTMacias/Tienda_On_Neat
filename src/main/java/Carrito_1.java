@@ -1,6 +1,5 @@
 package main.java;
 
-
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.BufferedReader;
@@ -40,13 +39,11 @@ public class Carrito_1 extends javax.swing.JFrame {
         Panel_Resumen = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton_Pagar = new javax.swing.JButton();
         btn_regresar = new javax.swing.JButton();
         TF_SubTotal = new javax.swing.JTextField();
         TF_Total = new javax.swing.JTextField();
-        TF_Envio = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         CantidadTotal = new javax.swing.JLabel();
@@ -65,9 +62,6 @@ public class Carrito_1 extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setText("Subtotal: ");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel6.setText("Envío: ");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         jLabel7.setText("Total: ");
@@ -106,11 +100,6 @@ public class Carrito_1 extends javax.swing.JFrame {
         TF_Total.setText("$0");
         TF_Total.setBorder(null);
 
-        TF_Envio.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        TF_Envio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        TF_Envio.setText("$0");
-        TF_Envio.setBorder(null);
-
         javax.swing.GroupLayout Panel_ResumenLayout = new javax.swing.GroupLayout(Panel_Resumen);
         Panel_Resumen.setLayout(Panel_ResumenLayout);
         Panel_ResumenLayout.setHorizontalGroup(
@@ -118,53 +107,46 @@ public class Carrito_1 extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_ResumenLayout.createSequentialGroup()
                 .addGroup(Panel_ResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(Panel_ResumenLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_regresar)
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Panel_ResumenLayout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(Panel_ResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Panel_ResumenLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                                .addComponent(TF_SubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(Panel_ResumenLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(TF_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_ResumenLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(TF_Envio, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_ResumenLayout.createSequentialGroup()
-                                .addGroup(Panel_ResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                                .addComponent(TF_SubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(41, 41, 41))
-                    .addGroup(Panel_ResumenLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_regresar)
-                        .addGap(24, 24, 24)))
+                                .addComponent(jLabel3)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(41, 41, 41)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_ResumenLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton_Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+                .addGap(54, 54, 54))
         );
         Panel_ResumenLayout.setVerticalGroup(
             Panel_ResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_ResumenLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(jLabel3)
-                .addGap(26, 26, 26)
+                .addGap(51, 51, 51)
                 .addGroup(Panel_ResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(TF_SubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(Panel_ResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(TF_Envio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGap(46, 46, 46)
                 .addGroup(Panel_ResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(TF_Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(55, 55, 55)
                 .addComponent(jButton_Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_regresar)
                 .addGap(17, 17, 17))
         );
@@ -184,6 +166,11 @@ public class Carrito_1 extends javax.swing.JFrame {
         jButton_Borrar_Productos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton_Borrar_ProductosMouseClicked(evt);
+            }
+        });
+        jButton_Borrar_Productos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Borrar_ProductosActionPerformed(evt);
             }
         });
 
@@ -250,7 +237,7 @@ public class Carrito_1 extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
             .addComponent(Panel_Resumen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -272,11 +259,30 @@ public class Carrito_1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_Borrar_ProductosMouseClicked
 
     private void jButton_PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_PagarActionPerformed
-        double total = calcularTotal(); // Obtén el total del carrito
-        Pago pago = new Pago(total);  
-        pago.setVisible(true);
-        this.dispose();
+        Registrado usuarioActivo = Sesion.getUsuarioActual();
+        if (usuarioActivo == null) {
+            JOptionPane.showMessageDialog(this, "No hay un usuario activo. Inicia sesión para ver tu carrito.");
+            return;
+        }
+        List<Producto> productosCarrito = PersistenciaCarrito.cargarCarrito();
+      
+        List<Oferta> ofertasCarrito = PersistenciaCarrito.cargarOfertasCarrito();
+
+        if (productosCarrito.isEmpty() && ofertasCarrito.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tu carrito está vacío.");
+            return;
+        } else{
+            double total = calcularTotal();
+            Pago pago = new Pago(total);  
+            pago.setVisible(true);
+            this.dispose(); 
+        }
     }//GEN-LAST:event_jButton_PagarActionPerformed
+
+    private void jButton_Borrar_ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Borrar_ProductosActionPerformed
+        PersistenciaCarrito.eliminarCarrito();
+        cargarProductosCarrito();
+    }//GEN-LAST:event_jButton_Borrar_ProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,7 +300,6 @@ public class Carrito_1 extends javax.swing.JFrame {
     private javax.swing.JLabel CantidadTotal;
     private javax.swing.JPanel Panel_Productos_Seleccionados;
     private javax.swing.JPanel Panel_Resumen;
-    private javax.swing.JTextField TF_Envio;
     private javax.swing.JTextField TF_SubTotal;
     private javax.swing.JTextField TF_Total;
     private javax.swing.JButton btn_regresar;
@@ -303,7 +308,6 @@ public class Carrito_1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -342,7 +346,6 @@ public class Carrito_1 extends javax.swing.JFrame {
     
     private void cargarProductosCarrito() {
         
-        // Cargar productos y ofertas del usuario actual
         Registrado usuarioActivo = Sesion.getUsuarioActual();
         if (usuarioActivo == null) {
             JOptionPane.showMessageDialog(this, "No hay un usuario activo. Inicia sesión para ver tu carrito.");
@@ -366,7 +369,7 @@ public class Carrito_1 extends javax.swing.JFrame {
     
     private void mostrarProductos(List<Producto> productosCarrito, List<Oferta> ofertasCarrito) {
        
-         Panel_Productos_Seleccionados.removeAll(); // Limpiar panel
+         Panel_Productos_Seleccionados.removeAll();
 
         for (Producto producto : productosCarrito) {
             
@@ -378,7 +381,6 @@ public class Carrito_1 extends javax.swing.JFrame {
             Panel_Productos_Seleccionados.add(panelProducto);
         }
 
-        // Mostrar ofertas
         for (Oferta oferta : ofertasCarrito) {
             panel_producto_agregado panelOferta = new panel_producto_agregado();
             panelOferta.setNombreProducto(oferta.getNombre());
@@ -402,19 +404,16 @@ public class Carrito_1 extends javax.swing.JFrame {
     public void calcularSubTotal() {
         double subtotal = 0.0;
 
-        // Calcular el subtotal de productos
         List<Producto> productosCarrito = PersistenciaCarrito.cargarCarrito();
         for (Producto producto : productosCarrito) {
             subtotal += producto.getPrecio() * producto.getCantidad();
         }
 
-        // Calcular el subtotal de ofertas
         List<Oferta> ofertasCarrito = PersistenciaCarrito.cargarOfertasCarrito();
         for (Oferta oferta : ofertasCarrito) {
             subtotal += oferta.getPrecioDescuento() * oferta.getCantidad();
         }
 
-        // Mostrar el subtotal
         TF_SubTotal.setText(String.format("%.2f", subtotal));
     }
 
@@ -429,13 +428,13 @@ public class Carrito_1 extends javax.swing.JFrame {
     
     public int calcularCantidadProductos(){
         int cantidadProductos = 0;
-        // Calcular la cantidad de productos
+        // Cantidad de productos
         List<Producto> productosCarrito = PersistenciaCarrito.cargarCarrito();
         for (Producto producto : productosCarrito) {
             cantidadProductos += producto.getCantidad();
         }
 
-        // Calcular la cantidad de ofertas
+        // Cantidad de ofertas
         List<Oferta> ofertasCarrito = PersistenciaCarrito.cargarOfertasCarrito();
         for (Oferta oferta : ofertasCarrito) {
             cantidadProductos += oferta.getCantidad();

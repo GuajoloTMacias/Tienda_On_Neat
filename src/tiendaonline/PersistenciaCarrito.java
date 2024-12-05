@@ -4,6 +4,7 @@ package tiendaonline;
 
 import java.io.*;
 import java.util.*;
+import javax.swing.JOptionPane;
 
 
 public class PersistenciaCarrito {
@@ -133,7 +134,7 @@ public class PersistenciaCarrito {
         if (usuarioActual != null) { 
             String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_ofertas.txt"; 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-                writer.write(oferta.getNombre() + "," + oferta.getPrecio() + "," + cantidad + "," + oferta.getPrecioDescuento());
+                writer.write(oferta.getNombre() + "," + oferta.getPrecioDescuento() + "," + cantidad + "," + oferta.getPrecioDescuento());
                 writer.newLine();
             }
         } else {
@@ -145,16 +146,16 @@ public class PersistenciaCarrito {
     public static void eliminarCarrito() {
         Registrado usuarioActual = Sesion.getUsuarioActual(); 
         if (usuarioActual != null) {
-            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_carrito.txt"; 
+            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_productos.txt"; 
             File archivo = new File(fileName);
             if (archivo.exists()) {
                 if (archivo.delete()) {
-                    System.out.println("Productos del carrito eliminados correctamente.");
+                    JOptionPane.showMessageDialog(null, "Productos del carrito eliminados correctamente.");
                 } else {
                     System.out.println("Error al intentar eliminar los productos del carrito.");
                 }
             } else {
-                System.out.println("El archivo de ofertas no existe.");
+                System.out.println("El archivo de productos no existe.");
             }
         } else {
             System.out.println("Error: No hay usuario activo en la sesión.");

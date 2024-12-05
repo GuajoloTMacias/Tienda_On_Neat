@@ -5,32 +5,19 @@ import tiendaonline.Sesion;
 import tiendaonline.Tarjeta;
 import tiendaonline.Usuario;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
-/**
- *
- * @author gusta_000
- */
 public class Configuracion extends javax.swing.JFrame { 
     private Registrado usuarioRegistrado; // Variable para almacenar el usuario registrado
-    /**
-     * Creates new form Configuracion
-     */
+
     public Configuracion() {
     initComponents();
 
-    // Obtener el usuario actual desde la clase Sesion
+    //Usuario actual 
     Usuario usuarioActual = Sesion.getUsuarioActual();
 
-    // Verificar si el usuario está logueado y es del tipo Registrado
     if (usuarioActual instanceof Registrado) {
         usuarioRegistrado = (Registrado) usuarioActual;
 
-        // Mostrar los datos del usuario en los JLabel correspondientes
-        nombre.setText(usuarioRegistrado.nombre); // Mostrar el nombre
+        nombre.setText(usuarioRegistrado.nombre);
         apellido_paterno.setText(usuarioRegistrado.apellidoPaterno); 
         apellido_materno.setText(usuarioRegistrado.apellidoMaterno); 
         nombre_usuario.setText(usuarioRegistrado.nombreUsuario); 
@@ -53,9 +40,8 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         nombre_usuario = new javax.swing.JLabel();
         contraseña = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        tarjeta_puntos = new javax.swing.JLabel();
+        numero_tarjeta = new javax.swing.JLabel();
         Tarjeta = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         btn_regresa_configuraciones = new javax.swing.JButton();
@@ -86,11 +72,9 @@ public class Configuracion extends javax.swing.JFrame {
 
         contraseña.setText("  ");
 
-        jLabel5.setText("Tarjeta de puntos:");
-
         jLabel6.setText("Tarjeta de debito/credito:");
 
-        tarjeta_puntos.setText("  ");
+        numero_tarjeta.setText("  ");
 
         Tarjeta.setText("  ");
 
@@ -160,21 +144,18 @@ public class Configuracion extends javax.swing.JFrame {
                                     .addComponent(apellido_paterno, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tarjeta_puntos, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(numero_tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addGap(29, 29, 29)
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(Tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 104, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_regresa_configuraciones)
-                .addGap(60, 60, 60))
+                                .addComponent(btn_regresa_configuraciones)))
+                        .addGap(0, 63, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,17 +188,14 @@ public class Configuracion extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(tarjeta_puntos))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Tarjeta)
+                    .addComponent(numero_tarjeta)
                     .addComponent(jLabel6))
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Tarjeta)
                     .addComponent(jButton1)
                     .addComponent(btn_regresa_configuraciones))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -282,14 +260,13 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel nombre;
     private javax.swing.JLabel nombre_usuario;
-    private javax.swing.JLabel tarjeta_puntos;
+    private javax.swing.JLabel numero_tarjeta;
     // End of variables declaration//GEN-END:variables
 }
 

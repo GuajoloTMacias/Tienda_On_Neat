@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import tiendaonline.Oferta;
+import tiendaonline.PersistenciaCarrito;
+import tiendaonline.Producto;
 
 
 
@@ -36,10 +39,8 @@ public class Pago extends javax.swing.JFrame {
         CVC = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
-        TF_SubTotal = new javax.swing.JLabel();
         jButton_Pagar_Final = new javax.swing.JButton();
         jButton_regresar = new javax.swing.JButton();
-        jLabel41 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         TF_Total_final = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -78,7 +79,7 @@ public class Pago extends javax.swing.JFrame {
         MM_YY.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         MM_YY.setForeground(new java.awt.Color(153, 153, 153));
         MM_YY.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        MM_YY.setText("MM/YY");
+        MM_YY.setText("DD/MM/YYYY");
         MM_YY.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 MM_YYMouseEntered(evt);
@@ -163,9 +164,6 @@ public class Pago extends javax.swing.JFrame {
         jLabel38.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel38.setText("Resumen");
 
-        TF_SubTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TF_SubTotal.setText("$0.00");
-
         jButton_Pagar_Final.setBackground(new java.awt.Color(204, 0, 0));
         jButton_Pagar_Final.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jButton_Pagar_Final.setForeground(new java.awt.Color(255, 255, 255));
@@ -175,6 +173,11 @@ public class Pago extends javax.swing.JFrame {
                 jButton_Pagar_FinalMouseClicked(evt);
             }
         });
+        jButton_Pagar_Final.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Pagar_FinalActionPerformed(evt);
+            }
+        });
 
         jButton_regresar.setText("Regresar");
         jButton_regresar.addActionListener(new java.awt.event.ActionListener() {
@@ -182,9 +185,6 @@ public class Pago extends javax.swing.JFrame {
                 jButton_regresarActionPerformed(evt);
             }
         });
-
-        jLabel41.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel41.setText("SubTotal:");
 
         jLabel45.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel45.setText("Total: ");
@@ -204,19 +204,14 @@ public class Pago extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
                         .addComponent(jLabel38)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel45)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(TF_Total_final))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel41)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(TF_SubTotal))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButton_Pagar_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -225,17 +220,13 @@ public class Pago extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addGap(48, 48, 48)
                 .addComponent(jLabel38)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel41)
-                    .addComponent(TF_SubTotal))
-                .addGap(44, 44, 44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel45)
                     .addComponent(TF_Total_final))
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addComponent(jButton_Pagar_Final)
                 .addGap(32, 32, 32)
                 .addComponent(jButton_regresar)
@@ -320,14 +311,14 @@ public class Pago extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_regresarActionPerformed
 
     private void MM_YYMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MM_YYMouseEntered
-        if (MM_YY.getText().equals("MM/YY")) {
+        if (MM_YY.getText().equals("DD/MM/YYYY")) {
            MM_YY.setText("");
         }
     }//GEN-LAST:event_MM_YYMouseEntered
 
     private void MM_YYMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MM_YYMouseExited
         if (MM_YY.getText().isEmpty()){
-            MM_YY.setText("MM/YY");
+            MM_YY.setText("DD/MM/YYYY");
         }
     }//GEN-LAST:event_MM_YYMouseExited
 
@@ -372,25 +363,45 @@ public class Pago extends javax.swing.JFrame {
         }
 
         // Si los datos son válidos, se hace el pago
+        TF_Total_final.setText("$ 0.00");
+        
+        PersistenciaCarrito.eliminarCarrito();
         JOptionPane.showMessageDialog(this, "Pago realizado con éxito.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     
     }//GEN-LAST:event_jButton_Pagar_FinalMouseClicked
+
+    private void jButton_Pagar_FinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Pagar_FinalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_Pagar_FinalActionPerformed
 
     
     
     
     
     private void inicializarDatosPago(){ 
-        double total = calcularTotal();
-        TF_SubTotal.setText(String.format("%.2f", total)); 
-        TF_Total_final.setText(String.format("%.2f", total));   
+        calcularSubTotal(); 
+    }
+    
+    public void calcularSubTotal() {
+        double total = 0.0;
+
+        // Calcular el subtotal de productos
+        List<Producto> productosCarrito = PersistenciaCarrito.cargarCarrito();
+        for (Producto producto : productosCarrito) {
+            total += producto.getPrecio() * producto.getCantidad();
+        }
+
+        // Calcular el subtotal de ofertas
+        List<Oferta> ofertasCarrito = PersistenciaCarrito.cargarOfertasCarrito();
+        for (Oferta oferta : ofertasCarrito) {
+            total += oferta.getPrecioDescuento() * oferta.getCantidad();
+        }
+        TF_Total_final.setText(String.format("%.2f", total)); 
+
     }
     
 
-    private double calcularTotal(){
-        double total = 0.0;
-        return total;
-    }
+  
     
     /**
      * @param args the command line arguments
@@ -490,7 +501,6 @@ public class Pago extends javax.swing.JFrame {
     private javax.swing.JTextField MM_YY;
     private javax.swing.JTextField Nombre_titular;
     private javax.swing.JTextField Numero_Tarjeta;
-    private javax.swing.JLabel TF_SubTotal;
     private javax.swing.JLabel TF_Total_final;
     private javax.swing.JButton jButton_Pagar_Final;
     private javax.swing.JButton jButton_regresar;
@@ -502,7 +512,6 @@ public class Pago extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel15;

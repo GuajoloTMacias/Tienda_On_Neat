@@ -59,15 +59,13 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
     }
     
     public static void Mostrar_Ofertas(List<Oferta> ofertas,JPanel Contenedor, Component _repaint){
-        
-        // Configurar el g layout
+
         int columnas = 4; 
         int filas = (int) Math.ceil((double) ofertas.size() / columnas); 
         Contenedor.setLayout(new GridLayout(filas, columnas, 10, 10)); // Espaciado
 
         Contenedor.removeAll();
 
-        // Agregar los productos 
         for (Oferta o : ofertas) {
             Producto_panel_oferta panel = new Producto_panel_oferta(o.getNombre(), o.getDescripcion(), o.getImagen(), o.getPrecio(), o.getPrecioDescuento(), o.getDescuento());
             panel.setSize(250, 350); 
@@ -88,9 +86,9 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
         Descripcion_producto = new javax.swing.JLabel();
         Panel_botones = new javax.swing.JPanel();
         btn_menos = new javax.swing.JButton();
-        btn_mas = new javax.swing.JButton();
         Txt_cantidad = new javax.swing.JLabel();
         btn_agregar = new javax.swing.JButton();
+        btn_mas = new javax.swing.JButton();
         Precio = new javax.swing.JLabel();
         Precio_Anterior = new javax.swing.JLabel();
         Descuento = new javax.swing.JLabel();
@@ -120,13 +118,6 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
             }
         });
 
-        btn_mas.setText("+");
-        btn_mas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_masActionPerformed(evt);
-            }
-        });
-
         Txt_cantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Txt_cantidad.setText(" 0");
 
@@ -134,6 +125,13 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
         btn_agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_agregarActionPerformed(evt);
+            }
+        });
+
+        btn_mas.setText("+");
+        btn_mas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_masActionPerformed(evt);
             }
         });
 
@@ -158,9 +156,9 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(Panel_botonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_menos)
-                    .addComponent(btn_mas)
                     .addComponent(Txt_cantidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_agregar))
+                    .addComponent(btn_agregar)
+                    .addComponent(btn_mas))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -213,7 +211,7 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
                     .addComponent(Precio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Precio_Anterior)
                     .addComponent(Descuento))
-                .addGap(1, 1, 1)
+                .addGap(5, 5, 5)
                 .addComponent(Panel_botones, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
