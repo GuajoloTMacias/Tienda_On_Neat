@@ -3,6 +3,11 @@ package main.java;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -21,6 +26,7 @@ public class Carrito_1 extends javax.swing.JFrame {
     public Carrito_1() {
         this.nombreUsuario = Sesion.getUsuarioActual().nombreUsuario;
         initComponents();
+        imprimirProductosUsuarioActivo();
         inicializarTotales();
         cargarProductosCarrito();
         
@@ -303,7 +309,38 @@ public class Carrito_1 extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     
+    public static void imprimirProductosUsuarioActivo() {
+        Registrado usuarioActual = Sesion.getUsuarioActual(); 
+        if (usuarioActual == null) {
+            System.out.println("No hay usuario activo en la sesión.");
+            return;
+        }
+
+        String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_carrito.txt";
+        File archivo = new File(fileName);
+
+        if (!archivo.exists()) {
+            System.out.println("El archivo no existe para el usuario: " + usuarioActual.getNombreUsuario());
+            return;
+        }
+
+        System.out.println("Productos del carrito de " + usuarioActual.getNombreUsuario() + ":");
+        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            int contador = 1;
+            while ((linea = reader.readLine()) != null) {
+                System.out.println(contador + ". " + linea);
+                contador++;
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        }
+    }
+
+   
+    
     private void cargarProductosCarrito() {
+        
         // Cargar productos y ofertas del usuario actual
         Registrado usuarioActivo = Sesion.getUsuarioActual();
         if (usuarioActivo == null) {
@@ -327,15 +364,11 @@ public class Carrito_1 extends javax.swing.JFrame {
 
     
     private void mostrarProductos(List<Producto> productosCarrito, List<Oferta> ofertasCarrito) {
-        if ((productosCarrito == null || productosCarrito.isEmpty()) || (ofertasCarrito == null || ofertasCarrito.isEmpty())) {
-            System.out.println("El carrito está vacío.");
-            return;
-        }
+        
 
-        Panel_Productos_Seleccionados.removeAll();
-
-        // Mostrar productos
+        
         for (Producto producto : productosCarrito) {
+            
             panel_producto_agregado panelProducto = new panel_producto_agregado();
             panelProducto.setNombreProducto(producto.getNombre());
             panelProducto.setPrecioProducto(String.format("$%.2f", producto.getPrecio()));

@@ -4,9 +4,7 @@ package tiendaonline;
 
 import java.io.*;
 import java.util.*;
-import javax.swing.JOptionPane;
-import main.java.Producto_panel;
-import main.java.Producto_panel_oferta;
+
 
 public class PersistenciaCarrito {
     private static final String DIRECTORIO_CARRITOS = "carritos/";
@@ -19,12 +17,12 @@ public class PersistenciaCarrito {
     }
 
     public static void guardarCarrito(List<Producto> productos) {
-        Registrado usuarioActual = Sesion.getUsuarioActual(); // usuario actual
+        Registrado usuarioActual = Sesion.getUsuarioActual(); 
         if (usuarioActual != null) {
-            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_carrito.txt"; // Usa getNombreUsuario()
+            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_carrito.txt";
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
                 for (Producto producto : productos) {
-                    writer.write(producto.getNombre() + ";" + producto.getImagen() + ";" + producto.getPrecio() + ";" + producto.getCantidad());
+                    writer.write(producto.getNombre() + "," + producto.getPrecio() + "," + producto.getCantidad());
                     writer.newLine();
                 }
             } catch (IOException e) {
@@ -37,22 +35,21 @@ public class PersistenciaCarrito {
 
 
     public static List<Producto> cargarCarrito() {
-        Registrado usuarioActual = Sesion.getUsuarioActual(); // Obtiene el usuario actual
+        Registrado usuarioActual = Sesion.getUsuarioActual(); 
         if (usuarioActual != null) {
-            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_carrito.txt"; // Usa getNombreUsuario()
+            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_carrito.txt"; 
             List<Producto> productos = new ArrayList<>();
             File archivo = new File(fileName);
             if (archivo.exists()) {
                 try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
                     String linea;
                     while ((linea = reader.readLine()) != null) {
-                        String[] partes = linea.split(";");
-                        if (partes.length == 4) {
+                        String[] partes = linea.split(",");
+                        if (partes.length == 3) {
                             String nombre = partes[0];
-                            String urlImagen = partes[1];
-                            double precio = Double.parseDouble(partes[2]);
-                            int cantidad = Integer.parseInt(partes[3]);
-                            productos.add(new Producto(nombre, urlImagen, precio, cantidad));
+                            double precio = Double.parseDouble(partes[1]);
+                            int cantidad = Integer.parseInt(partes[2]);
+                            productos.add(new Producto(nombre, precio, cantidad));
                         }
                     }
                 } catch (IOException e) {
@@ -68,12 +65,12 @@ public class PersistenciaCarrito {
 
 
     public static void guardarOfertasCarrito(List<Oferta> ofertas) {
-        Registrado usuarioActual = Sesion.getUsuarioActual(); // Obtiene el usuario actual
+        Registrado usuarioActual = Sesion.getUsuarioActual(); 
         if (usuarioActual != null) {
-            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_ofertas.txt"; // Usa getNombreUsuario()
+            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_ofertas.txt"; 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
                 for (Oferta oferta : ofertas) {
-                    writer.write(oferta.getNombre() + ";" + oferta.getImagen() + ";" + oferta.getPrecio() + ";" + oferta.getCantidad() + ";" + oferta.getPrecioDescuento());
+                    writer.write(oferta.getNombre() + "," + oferta.getPrecio() + "," + oferta.getCantidad() + "," + oferta.getPrecioDescuento());
                     writer.newLine();
                 }
             } catch (IOException e) {
@@ -86,9 +83,9 @@ public class PersistenciaCarrito {
 
 
     public static List<Oferta> cargarOfertasCarrito() {
-        Registrado usuarioActual = Sesion.getUsuarioActual(); // Obtiene el usuario actual
+        Registrado usuarioActual = Sesion.getUsuarioActual();
         if (usuarioActual != null) {
-            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_ofertas.txt"; // Usa getNombreUsuario()
+            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_ofertas.txt"; 
             List<Oferta> ofertas = new ArrayList<>();
             File archivo = new File(fileName);
             if (archivo.exists()) {
@@ -96,13 +93,12 @@ public class PersistenciaCarrito {
                     String linea;
                     while ((linea = reader.readLine()) != null) {
                         String[] partes = linea.split(";");
-                        if (partes.length == 5) {
+                        if (partes.length == 4) {
                             String nombre = partes[0];
-                            String urlImagen = partes[1];
-                            double precio = Double.parseDouble(partes[2]);
-                            int cantidad = Integer.parseInt(partes[3]);
-                            double precioDescuento = Double.parseDouble(partes[4]);
-                            ofertas.add(new Oferta(nombre, urlImagen, precio, cantidad, precioDescuento));
+                            double precio = Double.parseDouble(partes[1]);
+                            int cantidad = Integer.parseInt(partes[2]);
+                            double precioDescuento = Double.parseDouble(partes[3]);
+                            ofertas.add(new Oferta(nombre, precio, cantidad, precioDescuento));
                         }
                     }
                 } catch (IOException e) {
@@ -118,11 +114,11 @@ public class PersistenciaCarrito {
 
     
     public static void agregarProductoAlCarritoTXT(Producto producto, int cantidad) throws IOException {
-        Registrado usuarioActual = Sesion.getUsuarioActual(); // Obtiene el usuario actual
-        if (usuarioActual != null) { // Verifica que haya un usuario activo
-            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_productos.txt"; // Usa getNombreUsuario()
+        Registrado usuarioActual = Sesion.getUsuarioActual(); 
+        if (usuarioActual != null) {
+            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_productos.txt"; 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-                writer.write(producto.getNombre() + ";" + producto.getImagen() + ";" + producto.getPrecio() + ";" + cantidad);
+                writer.write(producto.getNombre() + "," + producto.getPrecio() + "," + cantidad);
                 writer.newLine();
             }
         } else {
@@ -133,11 +129,11 @@ public class PersistenciaCarrito {
 
 
     public static void agregarOfertaAlCarritoTXT(Oferta oferta, int cantidad) throws IOException {
-        Registrado usuarioActual = Sesion.getUsuarioActual(); // Obtiene el usuario actual
-        if (usuarioActual != null) { // Verifica que haya un usuario activo
-            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_ofertas.txt"; // Usa getNombreUsuario()
+        Registrado usuarioActual = Sesion.getUsuarioActual(); 
+        if (usuarioActual != null) { 
+            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_ofertas.txt"; 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-                writer.write(oferta.getNombre() + ";" + oferta.getImagen() + ";" + oferta.getPrecio() + ";" + cantidad + ";" + oferta.getPrecioDescuento());
+                writer.write(oferta.getNombre() + "," + oferta.getPrecio() + "," + cantidad + "," + oferta.getPrecioDescuento());
                 writer.newLine();
             }
         } else {
@@ -147,9 +143,9 @@ public class PersistenciaCarrito {
     
     
     public static void eliminarCarrito() {
-        Registrado usuarioActual = Sesion.getUsuarioActual(); // Obtiene el usuario actual
+        Registrado usuarioActual = Sesion.getUsuarioActual(); 
         if (usuarioActual != null) {
-            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_carrito.txt"; // Usa getNombreUsuario()
+            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_carrito.txt"; 
             File archivo = new File(fileName);
             if (archivo.exists()) {
                 if (archivo.delete()) {

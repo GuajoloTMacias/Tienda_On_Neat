@@ -1,3 +1,1 @@
-Acelerómetro y giroscopio MPU6050;/Imagenes/1.jpg;20.5;1
-Arduino Nano;/Imagenes/3.jpg;25.0;1
-Arduino Uno R3;/Imagenes/4.jpg;22.0;1
+Arduino Nano,25.0,1

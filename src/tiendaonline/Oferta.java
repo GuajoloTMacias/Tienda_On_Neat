@@ -5,8 +5,8 @@ public class Oferta extends Producto{
     private int descuento;
     private double precio_descuento;
     
-    public Oferta(String nombre, String url_imagen, double precio , int cantidad, double precio_descuento){
-        super(nombre, url_imagen, precio, cantidad);
+    public Oferta(String nombre, double precio , int cantidad, double precio_descuento){
+        super(nombre, precio, cantidad);
         this.precio_descuento = precio_descuento;
     }
     
