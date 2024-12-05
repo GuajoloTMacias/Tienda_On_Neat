@@ -339,8 +339,10 @@ public class Producto_panel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Inicia sesión para agregar productos al carrito.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
         try {
-            PersistenciaCarrito.agregarProductoAlCarrito(usuarioLogueado, producto, this);
+            // Usa PersistenciaCarrito para manejar la escritura en el archivo del carrito del usuario
+            PersistenciaCarrito.agregarProductoAlCarritoTXT(producto, this.getCantidad());
             JOptionPane.showMessageDialog(this, "Producto agregado al carrito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al agregar el producto al carrito: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

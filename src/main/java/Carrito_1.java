@@ -1,9 +1,14 @@
 package main.java;
 
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.List;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import tiendaonline.Carrito;
+import tiendaonline.Oferta;
 import tiendaonline.PersistenciaCarrito;
 import tiendaonline.Producto;
 import tiendaonline.Registrado;
@@ -15,7 +20,6 @@ public class Carrito_1 extends javax.swing.JFrame {
 
     public Carrito_1() {
         this.nombreUsuario = Sesion.getUsuarioActual().nombreUsuario;
-          // Asignar el nombre del usuario
         initComponents();
         inicializarTotales();
         cargarProductosCarrito();
@@ -40,7 +44,7 @@ public class Carrito_1 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton_Borrar_Productos = new javax.swing.JButton();
-        jScrollPane_Productos = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         Panel_Productos_Seleccionados = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -153,7 +157,7 @@ public class Carrito_1 extends javax.swing.JFrame {
                     .addComponent(TF_Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(jButton_Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                 .addComponent(btn_regresar)
                 .addGap(17, 17, 17))
         );
@@ -185,7 +189,7 @@ public class Carrito_1 extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 320, Short.MAX_VALUE)
                 .addComponent(jButton_Borrar_Productos, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -201,48 +205,46 @@ public class Carrito_1 extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jScrollPane_Productos.setViewportView(null);
-
         Panel_Productos_Seleccionados.setBackground(new java.awt.Color(255, 255, 255));
-        Panel_Productos_Seleccionados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout Panel_Productos_SeleccionadosLayout = new javax.swing.GroupLayout(Panel_Productos_Seleccionados);
         Panel_Productos_Seleccionados.setLayout(Panel_Productos_SeleccionadosLayout);
         Panel_Productos_SeleccionadosLayout.setHorizontalGroup(
             Panel_Productos_SeleccionadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
+            .addGap(0, 1051, Short.MAX_VALUE)
         );
         Panel_Productos_SeleccionadosLayout.setVerticalGroup(
             Panel_Productos_SeleccionadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 412, Short.MAX_VALUE)
+            .addGap(0, 392, Short.MAX_VALUE)
         );
 
-        jScrollPane_Productos.setViewportView(Panel_Productos_Seleccionados);
+        jScrollPane1.setViewportView(Panel_Productos_Seleccionados);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane_Productos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Panel_Resumen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Panel_Resumen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane_Productos)))
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(Panel_Resumen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -255,7 +257,7 @@ public class Carrito_1 extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_regresarActionPerformed
 
     private void jButton_PagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_PagarMouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton_PagarMouseClicked
 
     private void jButton_Borrar_ProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_Borrar_ProductosMouseClicked
@@ -297,75 +299,100 @@ public class Carrito_1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane_Productos;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    private void mostrarProductos() {
-        // Usuario actual
-        Registrado usuarioLogueado = (Registrado) Sesion.getUsuarioActual();
-        if (usuarioLogueado == null) {
-            JOptionPane.showMessageDialog(this, "Inicia sesión para tener un carrito.", "Error", JOptionPane.ERROR_MESSAGE);
+    
+    private void cargarProductosCarrito() {
+        // Cargar productos y ofertas del usuario actual
+        Registrado usuarioActivo = Sesion.getUsuarioActual();
+        if (usuarioActivo == null) {
+            JOptionPane.showMessageDialog(this, "No hay un usuario activo. Inicia sesión para ver tu carrito.");
             return;
         }
 
-        // Carrito usuario
-        String nombreUsuario = usuarioLogueado.getNombreUsuario();
-        List<Producto> carrito = PersistenciaCarrito.obtenerCarritoUsuario(nombreUsuario);
+        // Cargar productos normales
+        List<Producto> productosCarrito = PersistenciaCarrito.cargarCarrito();
+        // Cargar ofertas
+        List<Oferta> ofertasCarrito = PersistenciaCarrito.cargarOfertasCarrito();
+
+        if (productosCarrito.isEmpty() && ofertasCarrito.isEmpty()) {
+            System.out.println("No hay productos ni ofertas en el carrito de " + usuarioActivo.getNombreUsuario());
+            JOptionPane.showMessageDialog(this, "Tu carrito está vacío.");
+            return;
+        }
+
+        mostrarProductos(productosCarrito, ofertasCarrito);
+    }
+
+    
+    private void mostrarProductos(List<Producto> productosCarrito, List<Oferta> ofertasCarrito) {
+        if ((productosCarrito == null || productosCarrito.isEmpty()) || (ofertasCarrito == null || ofertasCarrito.isEmpty())) {
+            System.out.println("El carrito está vacío.");
+            return;
+        }
 
         Panel_Productos_Seleccionados.removeAll();
 
-        // Agregar productos y establecer datos
-        for (Producto producto : carrito) {
+        // Mostrar productos
+        for (Producto producto : productosCarrito) {
             panel_producto_agregado panelProducto = new panel_producto_agregado();
-            
-            //
             panelProducto.setNombreProducto(producto.getNombre());
             panelProducto.setPrecioProducto(String.format("$%.2f", producto.getPrecio()));
             panelProducto.setCantidadProducto(String.valueOf(producto.getCantidad()));
 
-  
             Panel_Productos_Seleccionados.add(panelProducto);
+        }
+
+        // Mostrar ofertas
+        for (Oferta oferta : ofertasCarrito) {
+            panel_producto_agregado panelOferta = new panel_producto_agregado();
+            panelOferta.setNombreProducto(oferta.getNombre());
+            panelOferta.setPrecioProducto(String.format("$%.2f", oferta.getPrecioDescuento()));
+            panelOferta.setCantidadProducto(String.valueOf(oferta.getCantidad()));
+
+            Panel_Productos_Seleccionados.add(panelOferta);
         }
 
         Panel_Productos_Seleccionados.revalidate();
         Panel_Productos_Seleccionados.repaint();
     }
-    
-    private void cargarProductosCarrito() {
-        // Obtener productos del carrito del usuario
-        List<Producto> productosCarrito = PersistenciaCarrito.obtenerCarritoUsuario(nombreUsuario);
-        if (productosCarrito.isEmpty()) {
-            System.out.println("No tienes productos en tu carrito.");
-        } else {
- 
-            Producto_panel.Mostrar_productos(productosCarrito, this.Panel_Productos_Seleccionados, this);
-        }
-    }
 
   
     private void inicializarTotales() {
+        TF_Envio.setText("$89.0");
         calcularSubTotal();
         calcularTotal();  
-        TF_Envio.setText("$89.0");
     }
     
     public void calcularSubTotal() {
-        Registrado usuarioLogueado = (Registrado) Sesion.getUsuarioActual();
-        if (usuarioLogueado == null) return;
+        double subtotal = 0.0;
 
-        String nombreUsuario = usuarioLogueado.getNombreUsuario();
-        List<Producto> carrito = PersistenciaCarrito.obtenerCarritoUsuario(nombreUsuario);
+        // Calcular el subtotal de productos
+        List<Producto> productosCarrito = PersistenciaCarrito.cargarCarrito();
+        for (Producto producto : productosCarrito) {
+            subtotal += producto.getPrecio() * producto.getCantidad();
+        }
 
-        double subtotal = carrito.stream().mapToDouble(p -> p.getPrecio() * p.getCantidad()).sum();
+        // Calcular el subtotal de ofertas
+        List<Oferta> ofertasCarrito = PersistenciaCarrito.cargarOfertasCarrito();
+        for (Oferta oferta : ofertasCarrito) {
+            subtotal += oferta.getPrecioDescuento() * oferta.getCantidad();
+        }
+
+        // Mostrar el subtotal
         TF_SubTotal.setText(String.format("%.2f", subtotal));
     }
 
+
     public double calcularTotal() {
-        calcularSubTotal();
-        double total = Double.parseDouble(TF_SubTotal.getText()) + envio;
-        TF_Total.setText(String.format("%.2f", total));
+        calcularSubTotal(); 
+        double subtotal = Double.parseDouble(TF_SubTotal.getText());
+        double total = subtotal + envio; // Agrega envío
+        TF_Total.setText(String.format("%.2f", total)); // Muestra el total
         return total;
     }
+
  
 }
 

@@ -28,7 +28,6 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
      * @param descuento
      */
     
-    private Carrito carrito;
     private Oferta oferta;
     
     public Producto_panel_oferta(String nombre, String descripcion, String url_imagen, double precio, double precio_descuento, int descuento) {
@@ -222,7 +221,7 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
         }
 
         try {
-            PersistenciaCarrito.agregarOfertaAlCarrito(usuarioLogueado, oferta, this);
+            PersistenciaCarrito.agregarOfertaAlCarritoTXT(oferta, this.getCantidad());
             JOptionPane.showMessageDialog(this, "Oferta agregada al carrito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al agregar la oferta al carrito: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

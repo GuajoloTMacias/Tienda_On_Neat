@@ -10,6 +10,13 @@ public class Producto implements Serializable{
     private int cantidad;
     private String dimensiones; 
     private String categoria;
+    
+    public Producto(String nombre, String url_imagen, double precio, int cantidad){
+        this.nombre = nombre;
+        this.url_imagen = url_imagen;
+        this.precio = precio;
+        this.cantidad = cantidad;
+    }
 
     public Producto(String nombre, String descripcion, String url_imagen, double precio, int cantidad, String dimensiones, String categoria) {
         this.nombre = nombre;

@@ -4,10 +4,11 @@ package tiendaonline;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import static tiendaonline.PersistenciaCarrito.cargarCarritos;
+
 
 public class VerificarProductos {
     public static void main(String[] args) {
+        /*
         // Obtener el usuario de la sesión actual
         Registrado usuarioLogueado = (Registrado) Sesion.getUsuarioActual();
         
@@ -30,8 +31,8 @@ public class VerificarProductos {
                 System.out.println("- " + p.getNombre() + " (Cantidad: " + p.getCantidad() + ")");
             }
         }
+*/
     }
-
 }
 
 

@@ -1,16 +1,20 @@
 package main.java;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 
+
 public class Pago extends javax.swing.JFrame {
-    private double SUBTOTAL = 0.0;
-    /**
-     * Creates new form Pago_1
-     */
-    public Pago(double SUBTOTAL) {
-        this.SUBTOTAL = SUBTOTAL;
+    private double total = 0.0;
+
+    public Pago(double total) {
+        this.total = total;
         initComponents();
         inicializarDatosPago();
     }
@@ -417,6 +421,34 @@ public class Pago extends javax.swing.JFrame {
 
     private void jButton_Pagar_FinalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_Pagar_FinalMouseClicked
         
+        String nombre = Nombre_titular.getText();
+        String numeroTarjeta = Numero_Tarjeta.getText();
+        String fechaVencimiento = MM_YY.getText();
+        String cvv = CVC.getText();
+
+        // Validar los datos
+        if (!validarNombreTitular(nombre)) {
+            JOptionPane.showMessageDialog(this, "El nombre del titular no coincide con los datos registrados.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!validarNumeroTarjeta(numeroTarjeta)) {
+            JOptionPane.showMessageDialog(this, "El número de tarjeta no coincide con los datos registrados.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!validarFechaVencimiento(fechaVencimiento)) {
+            JOptionPane.showMessageDialog(this, "La fecha de vencimiento no coincide con los datos registrados.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!validarCVV(cvv)) {
+            JOptionPane.showMessageDialog(this, "El CVV no coincide con los datos registrados.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Si los datos son válidos, se hace el pago
+        JOptionPane.showMessageDialog(this, "Pago realizado con éxito.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     
     }//GEN-LAST:event_jButton_Pagar_FinalMouseClicked
 
@@ -429,15 +461,14 @@ public class Pago extends javax.swing.JFrame {
     
     
     private void inicializarDatosPago(){
-        int puntos = calcularPuntos(); // Calcula los puntos
-        double total = calcularTotal(puntos); // Calcula el total
-        TF_SubTotal.setText(String.format("%.2f", SUBTOTAL)); // Muestra el subtotal
-        TF_Total_final.setText(String.format("%.2f", total));       // Muestra el total
+        int puntos = calcularPuntos(); 
+        double total = calcularTotal(puntos);
+        TF_SubTotal.setText(String.format("%.2f", total)); 
+        TF_Total_final.setText(String.format("%.2f", total));   
     }
     
     private int calcularPuntos(){
-        int puntos = 0;
-        
+        int puntos = 0;       
         return puntos;
     }
     private double calcularTotal(int puntos){
@@ -480,6 +511,62 @@ public class Pago extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    private List<String[]> leerDatosBancarios() {
+        List<String[]> datos = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("datos_bancarios.txt"))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                datos.add(linea.split(",")); 
+            }
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al leer los datos bancarios: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        return datos;
+    }
+    
+    private boolean validarNombreTitular(String nombre) {
+        List<String[]> datos = leerDatosBancarios();
+        for (String[] registro : datos) {
+            if (registro[0].equals(nombre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean validarNumeroTarjeta(String numeroTarjeta) {
+        List<String[]> datos = leerDatosBancarios();
+        for (String[] registro : datos) {
+            if (registro[1].equals(numeroTarjeta)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean validarFechaVencimiento(String fecha) {
+        List<String[]> datos = leerDatosBancarios();
+        for (String[] registro : datos) {
+            if (registro[2].equals(fecha)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean validarCVV(String cvv) {
+        List<String[]> datos = leerDatosBancarios();
+        for (String[] registro : datos) {
+            if (registro[3].equals(cvv)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CVC;
