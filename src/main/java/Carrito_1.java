@@ -20,12 +20,13 @@ import tiendaonline.Registrado;
 import tiendaonline.Sesion;
 
 public class Carrito_1 extends javax.swing.JFrame {
-    double envio = 89.0;
     private String nombreUsuario; 
 
     public Carrito_1() {
         this.nombreUsuario = Sesion.getUsuarioActual().nombreUsuario;
         initComponents();
+        Panel_Productos_Seleccionados.setLayout(new GridLayout(0, 1, 0, 10)); 
+
         imprimirProductosUsuarioActivo();
         inicializarTotales();
         cargarProductosCarrito();
@@ -48,7 +49,7 @@ public class Carrito_1 extends javax.swing.JFrame {
         TF_Envio = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        CantidadTotal = new javax.swing.JLabel();
         jButton_Borrar_Productos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Panel_Productos_Seleccionados = new javax.swing.JPanel();
@@ -72,10 +73,10 @@ public class Carrito_1 extends javax.swing.JFrame {
         jLabel7.setText("Total: ");
 
         jButton_Pagar.setBackground(new java.awt.Color(204, 0, 0));
-        jButton_Pagar.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 18)); // NOI18N
+        jButton_Pagar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton_Pagar.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Pagar.setText("Pagar");
-        jButton_Pagar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButton_Pagar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 1, true));
         jButton_Pagar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton_Pagar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -173,8 +174,8 @@ public class Carrito_1 extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Cesta");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setText("(0)");
+        CantidadTotal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        CantidadTotal.setText("(0)");
 
         jButton_Borrar_Productos.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         jButton_Borrar_Productos.setForeground(new java.awt.Color(0, 102, 153));
@@ -194,7 +195,7 @@ public class Carrito_1 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CantidadTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 320, Short.MAX_VALUE)
                 .addComponent(jButton_Borrar_Productos, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -206,7 +207,7 @@ public class Carrito_1 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(CantidadTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton_Borrar_Productos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -290,6 +291,7 @@ public class Carrito_1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel CantidadTotal;
     private javax.swing.JPanel Panel_Productos_Seleccionados;
     private javax.swing.JPanel Panel_Resumen;
     private javax.swing.JTextField TF_Envio;
@@ -299,7 +301,6 @@ public class Carrito_1 extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Borrar_Productos;
     private javax.swing.JButton jButton_Pagar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -316,7 +317,7 @@ public class Carrito_1 extends javax.swing.JFrame {
             return;
         }
 
-        String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_carrito.txt";
+        String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_productos.txt";
         File archivo = new File(fileName);
 
         if (!archivo.exists()) {
@@ -364,9 +365,9 @@ public class Carrito_1 extends javax.swing.JFrame {
 
     
     private void mostrarProductos(List<Producto> productosCarrito, List<Oferta> ofertasCarrito) {
-        
+       
+         Panel_Productos_Seleccionados.removeAll(); // Limpiar panel
 
-        
         for (Producto producto : productosCarrito) {
             
             panel_producto_agregado panelProducto = new panel_producto_agregado();
@@ -393,11 +394,11 @@ public class Carrito_1 extends javax.swing.JFrame {
 
   
     private void inicializarTotales() {
-        TF_Envio.setText("$89.0");
         calcularSubTotal();
         calcularTotal();  
+        calcularCantidadProductos();
     }
-    
+
     public void calcularSubTotal() {
         double subtotal = 0.0;
 
@@ -421,9 +422,27 @@ public class Carrito_1 extends javax.swing.JFrame {
     public double calcularTotal() {
         calcularSubTotal(); 
         double subtotal = Double.parseDouble(TF_SubTotal.getText());
-        double total = subtotal + envio; // Agrega envío
-        TF_Total.setText(String.format("%.2f", total)); // Muestra el total
+        double total = subtotal; 
+        TF_Total.setText(String.format("%.2f", total)); 
         return total;
+    }
+    
+    public int calcularCantidadProductos(){
+        int cantidadProductos = 0;
+        // Calcular la cantidad de productos
+        List<Producto> productosCarrito = PersistenciaCarrito.cargarCarrito();
+        for (Producto producto : productosCarrito) {
+            cantidadProductos += producto.getCantidad();
+        }
+
+        // Calcular la cantidad de ofertas
+        List<Oferta> ofertasCarrito = PersistenciaCarrito.cargarOfertasCarrito();
+        for (Oferta oferta : ofertasCarrito) {
+            cantidadProductos += oferta.getCantidad();
+        }
+
+        CantidadTotal.setText("(" + String.valueOf(cantidadProductos) + ")");
+        return cantidadProductos;
     }
 
  

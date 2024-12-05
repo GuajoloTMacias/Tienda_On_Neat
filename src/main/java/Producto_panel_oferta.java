@@ -29,6 +29,7 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
      */
     
     private Oferta oferta;
+    private int cantidad = 0;
     
     public Producto_panel_oferta(String nombre, String descripcion, String url_imagen, double precio, double precio_descuento, int descuento) {
         initComponents();
@@ -113,8 +114,18 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
         Panel_botones.setPreferredSize(new java.awt.Dimension(190, 55));
 
         btn_menos.setText("-");
+        btn_menos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_menosActionPerformed(evt);
+            }
+        });
 
         btn_mas.setText("+");
+        btn_mas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_masActionPerformed(evt);
+            }
+        });
 
         Txt_cantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Txt_cantidad.setText(" 0");
@@ -204,13 +215,25 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
                     .addComponent(Descuento))
                 .addGap(1, 1, 1)
                 .addComponent(Panel_botones, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         agregarOferta();
     }//GEN-LAST:event_btn_agregarActionPerformed
+
+    private void btn_menosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menosActionPerformed
+        if(cantidad > 0){
+                cantidad--;
+        }
+        this.Txt_cantidad.setText(String.valueOf(this.cantidad));
+    }//GEN-LAST:event_btn_menosActionPerformed
+
+    private void btn_masActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_masActionPerformed
+        cantidad++;
+        this.Txt_cantidad.setText(String.valueOf(this.cantidad));
+    }//GEN-LAST:event_btn_masActionPerformed
 
     private void agregarOferta() {
         Registrado usuarioLogueado = Sesion.getUsuarioActual();

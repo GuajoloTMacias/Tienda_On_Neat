@@ -15,6 +15,16 @@ public class Oferta extends Producto{
         this.descuento = descuento;
         this.precio_descuento = precio_descuento;
     }
+   
+    @Override
+    public String getNombre() {
+        return super.getNombre();
+    }
+    
+    @Override
+    public int getCantidad() {
+        return super.getCantidad();
+    }
     
     public int getDescuento() {
         return descuento;

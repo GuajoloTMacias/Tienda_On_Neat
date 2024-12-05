@@ -19,7 +19,7 @@ public class PersistenciaCarrito {
     public static void guardarCarrito(List<Producto> productos) {
         Registrado usuarioActual = Sesion.getUsuarioActual(); 
         if (usuarioActual != null) {
-            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_carrito.txt";
+            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_productos.txt";
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
                 for (Producto producto : productos) {
                     writer.write(producto.getNombre() + "," + producto.getPrecio() + "," + producto.getCantidad());
@@ -37,7 +37,7 @@ public class PersistenciaCarrito {
     public static List<Producto> cargarCarrito() {
         Registrado usuarioActual = Sesion.getUsuarioActual(); 
         if (usuarioActual != null) {
-            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_carrito.txt"; 
+            String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_productos.txt"; 
             List<Producto> productos = new ArrayList<>();
             File archivo = new File(fileName);
             if (archivo.exists()) {
