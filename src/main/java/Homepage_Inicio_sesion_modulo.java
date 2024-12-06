@@ -47,7 +47,8 @@ public class Homepage_Inicio_sesion_modulo extends javax.swing.JFrame {
         Contenedor.setMinimumSize(new java.awt.Dimension(900, 500));
         Contenedor.setPreferredSize(new java.awt.Dimension(900, 500));
 
-        Logo.setText("Logo");
+        Logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo (1).png"))); // NOI18N
 
         Txt_buscar_categorias.setText("Buscar");
         Txt_buscar_categorias.addMouseListener(new java.awt.event.MouseAdapter() {

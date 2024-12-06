@@ -58,7 +58,8 @@ public class Homepage_Inicio_sesion_ofertas extends javax.swing.JFrame {
         Contenedor.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         Contenedor.setMinimumSize(new java.awt.Dimension(900, 500));
 
-        Logo.setText("Logo");
+        Logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo (1).png"))); // NOI18N
 
         Txt_buscar.setText("Buscar");
         Txt_buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -160,7 +161,7 @@ public class Homepage_Inicio_sesion_ofertas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(ContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(ContenedorLayout.createSequentialGroup()
-                        .addGap(0, 12, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1053, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ContenedorLayout.createSequentialGroup()
                         .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)

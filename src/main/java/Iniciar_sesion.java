@@ -131,56 +131,23 @@ public class Iniciar_sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_Txt_usuarioActionPerformed
 
     private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
+        
    String usuario = Txt_usuario.getText(); 
     String contrasena = Txt_contraseña.getText(); 
-
     if (usuario.isEmpty() || contrasena.isEmpty()) {
         javax.swing.JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         return;
     }
-
-    try (BufferedReader reader = new BufferedReader(new FileReader(RUTA_ARCHIVO))) { 
-        String linea;
-        boolean encontrado = false;
-        Registrado usuarioLogueado = null;
-
-        // Leer línea por línea el archivo de usuarios
-        while ((linea = reader.readLine()) != null) {
-            String[] partes = linea.split(",");
-            if (partes.length == 7) { // Verifica que la línea tiene los campos necesarios
-                String nombre = partes[0];
-                String apellidoPaterno = partes[1];
-                String apellidoMaterno = partes[2];
-                String nombreUsuario = partes[3];
-                String contrasenaArchivo = partes[4];
-                String ciudad = partes[5];
-                String telefono = partes[6];
-
-                // Validar usuario y contraseña
-                if (usuario.equals(nombreUsuario) && contrasena.equals(contrasenaArchivo)) {
-                    encontrado = true;
-                    // Crear el objeto Registrado con los datos obtenidos
-                    usuarioLogueado = new Registrado(nombre, apellidoPaterno, apellidoMaterno, 
-                                                     nombreUsuario, contrasenaArchivo, ciudad, telefono);
-                    break;
-                }
-            }
-        }
-
-        if (encontrado && usuarioLogueado != null) {
-            Sesion.setUsuarioActual(usuarioLogueado);
-
+        if(IniciarSesion(usuario, contrasena)){
             javax.swing.JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
             Homepage_Inicio_sesion nuevaPagina = new Homepage_Inicio_sesion();
             nuevaPagina.setVisible(true);
             this.dispose();
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }else{
+                        javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+
         }
-    } catch (IOException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error al leer el archivo de usuarios.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-    }
     }                                           
  
     
@@ -267,4 +234,48 @@ public class Iniciar_sesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+
+    public static boolean IniciarSesion(String usuario, String pass) {
+
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(RUTA_ARCHIVO))) { 
+        String linea;
+        boolean encontrado = false;
+        Registrado usuarioLogueado = null;
+
+        // Leer línea por línea el archivo de usuarios
+        while ((linea = reader.readLine()) != null) {
+            String[] partes = linea.split(",");
+            if (partes.length == 7) { // Verifica que la línea tiene los campos necesarios
+                String nombre = partes[0];
+                String apellidoPaterno = partes[1];
+                String apellidoMaterno = partes[2];
+                String nombreUsuario = partes[3];
+                String contrasenaArchivo = partes[4];
+                String ciudad = partes[5];
+                String telefono = partes[6];
+
+                // Validar usuario y contraseña
+                if (usuario.equals(nombreUsuario) && pass.equals(contrasenaArchivo)) {
+                    encontrado = true;
+                    // Crear el objeto Registrado con los datos obtenidos
+                    usuarioLogueado = new Registrado(nombre, apellidoPaterno, apellidoMaterno, 
+                                                     nombreUsuario, contrasenaArchivo, ciudad, telefono);
+                    break;
+                }
+            }
+        }
+
+        if (encontrado && usuarioLogueado != null) {
+            Sesion.setUsuarioActual(usuarioLogueado);
+            System.out.println("Sesion iniciada correctamente");
+            return true;
+        } else {
+            return false;
+        }
+    } catch (IOException e) {
+        System.out.println("Error al leer el archivo de usuarios.");
+    }
+    return false;
+    }
 }

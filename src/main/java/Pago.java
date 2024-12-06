@@ -2,10 +2,13 @@ package main.java;
 
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import tiendaonline.Oferta;
 import tiendaonline.PersistenciaCarrito;
@@ -365,7 +368,11 @@ public class Pago extends javax.swing.JFrame {
         // Si los datos son válidos, se hace el pago
         TF_Total_final.setText("$ 0.00");
         
-        PersistenciaCarrito.eliminarCarrito();
+        try {
+            PersistenciaCarrito.eliminarCarrito();
+        } catch (FileNotFoundException ex) {
+           System.out.println("Archivo no encontrado");
+        }
         JOptionPane.showMessageDialog(this, "Pago realizado con éxito.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     
     }//GEN-LAST:event_jButton_Pagar_FinalMouseClicked

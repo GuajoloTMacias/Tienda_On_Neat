@@ -7,11 +7,14 @@ import java.io.IOException;
 import tiendaonline.Credito;
 import tiendaonline.Debito;
 import tiendaonline.Puntos;
+import tiendaonline.Registrado;
+import tiendaonline.Sesion;
 import tiendaonline.Tarjeta;
 
 
 public class Datos_Bancarios extends javax.swing.JFrame {
 
+    
 
     public Datos_Bancarios() {
         initComponents();
@@ -151,7 +154,9 @@ public class Datos_Bancarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_regesar_datosActionPerformed
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-      // Obtener los datos ingresados
+
+    String usuario = Sesion.getUsuarioActual().nombreUsuario;
+// Obtener los datos ingresados
     String titular = jTextField1.getText();
     String numeroTarjeta = jTextField2.getText();
     String fechaNacimiento = jTextField3.getText();
@@ -227,7 +232,7 @@ public class Datos_Bancarios extends javax.swing.JFrame {
 
     // Guardar los datos en un archivo en una sola línea
     try (BufferedWriter writer = new BufferedWriter(new FileWriter("datos_bancarios.txt", true))) {
-        writer.write(titular + "," + numeroTarjeta + "," + fechaNacimiento + "," + cvv + "," + tipoTarjeta);
+        writer.write(usuario+","+titular + "," + numeroTarjeta + "," + fechaNacimiento + "," + cvv + "," + tipoTarjeta);
         writer.newLine();
         javax.swing.JOptionPane.showMessageDialog(this, "Datos bancarios guardados correctamente.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     } catch (IOException e) {

@@ -1,2 +1,1 @@
-gustavo diaz medel,1234123412341234,01/01/2003,123,Crédito
-mauricio alvarez carmona,1234432112344321,01/01/2002,321,Crédito
+test,yo,1234567890123,01/03/2001,123,Crédito

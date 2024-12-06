@@ -62,7 +62,8 @@ public class Homepage_ofertas extends javax.swing.JFrame {
             }
         });
 
-        Logo.setText("Logo");
+        Logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo (1).png"))); // NOI18N
 
         Txt_buscar.setText("Buscar");
         Txt_buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));

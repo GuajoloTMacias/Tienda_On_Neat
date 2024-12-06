@@ -1,5 +1,9 @@
 package main.java;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import tiendaonline.Registrado;
 import tiendaonline.Sesion;
 import tiendaonline.Tarjeta;
@@ -22,6 +26,15 @@ public class Configuracion extends javax.swing.JFrame {
         apellido_materno.setText(usuarioRegistrado.apellidoMaterno); 
         nombre_usuario.setText(usuarioRegistrado.nombreUsuario); 
         contraseña.setText(usuarioRegistrado.contrasena); 
+       
+        String tarjeta = ObtenerTarjeta(usuarioRegistrado.nombreUsuario);
+        if(tarjeta != null){
+                    lbl_cc.setText(lbl_cc.getText() + tarjeta);
+
+        }else{
+                    lbl_cc.setText(lbl_cc.getText() + " -- ");
+        }
+       
 
     } else {
         // Si no hay usuario logueado, mostrar un mensaje o limpiar los campos
@@ -40,7 +53,7 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         nombre_usuario = new javax.swing.JLabel();
         contraseña = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lbl_cc = new javax.swing.JLabel();
         numero_tarjeta = new javax.swing.JLabel();
         Tarjeta = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -72,7 +85,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         contraseña.setText("  ");
 
-        jLabel6.setText("Tarjeta de debito/credito:");
+        lbl_cc.setText("Tarjeta de debito/credito:");
 
         numero_tarjeta.setText("  ");
 
@@ -145,7 +158,7 @@ public class Configuracion extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel6))
+                                    .addComponent(lbl_cc))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(numero_tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -189,7 +202,7 @@ public class Configuracion extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(numero_tarjeta)
-                    .addComponent(jLabel6))
+                    .addComponent(lbl_cc))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Tarjeta)
@@ -260,14 +273,57 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lbl_cc;
     private javax.swing.JLabel nombre;
     private javax.swing.JLabel nombre_usuario;
     private javax.swing.JLabel numero_tarjeta;
     // End of variables declaration//GEN-END:variables
+
+    private String ObtenerTarjeta(String usuario) {
+
+           String toRet = null;
+           
+             String fileName =  System.getProperty("user.dir") + "\\datos_bancarios.txt";
+        File archivo = new File(fileName);
+        
+        if (archivo.exists()) {
+            
+        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            int contador = 1;
+            while ((linea = reader.readLine()) != null) {
+                String[] data = linea.split(",");
+                if(usuario.equals(data[0])){
+                    String tarjeta = linea.split(",")[2];
+                    toRet = "";
+                    // Mostrar ultimos 4 digitos
+                    for(int i =0; i< tarjeta.length(); i++){
+                        if(i<tarjeta.length()-4){
+                            toRet += "*";
+                        }else{
+                                   toRet += tarjeta.charAt(i);
+
+                        }
+                    }
+                    
+                    return toRet;
+                }
+                contador++;
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        }
+            
+            return null;
+        }else{
+            System.out.println("Datos bancarios inexistentes.");
+        }
+
+           return toRet;
+    }
 }
 
     class InicioSesion {

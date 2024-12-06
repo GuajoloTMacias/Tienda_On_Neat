@@ -46,7 +46,8 @@ public class Homepage_Inicio_sesion_sensor extends javax.swing.JFrame {
         Contenedor.setMinimumSize(new java.awt.Dimension(900, 500));
         Contenedor.setPreferredSize(new java.awt.Dimension(900, 500));
 
-        Logo.setText("Logo");
+        Logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo (1).png"))); // NOI18N
 
         Txt_buscar_categorias.setText("Buscar");
         Txt_buscar_categorias.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -162,7 +163,7 @@ public class Homepage_Inicio_sesion_sensor extends javax.swing.JFrame {
                 .addGroup(ContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ContenedorLayout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_configurciones_inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenedorLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)

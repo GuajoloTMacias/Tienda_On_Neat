@@ -198,6 +198,9 @@ public class Registrarse extends javax.swing.JFrame {
     if (guardarEnArchivo(nuevoUsuario)) {
         javax.swing.JOptionPane.showMessageDialog(this, "Usuario registrado con éxito.");
 
+        // Iniciar Sesion
+        Iniciar_sesion.IniciarSesion(nombreUsuario, contrasena);
+        
         // Ir a la pantalla de datos bancarios
         Datos_Bancarios newpagina = new Datos_Bancarios();
         newpagina.setVisible(true);

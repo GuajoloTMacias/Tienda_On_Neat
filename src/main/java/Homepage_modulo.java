@@ -60,7 +60,8 @@ public class Homepage_modulo extends javax.swing.JFrame {
             }
         });
 
-        Logo.setText("Logo");
+        Logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo (1).png"))); // NOI18N
 
         Txt_buscar_categorias.setText("Buscar");
         Txt_buscar_categorias.addMouseListener(new java.awt.event.MouseAdapter() {
