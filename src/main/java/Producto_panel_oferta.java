@@ -34,6 +34,8 @@ public class Producto_panel_oferta extends javax.swing.JPanel {
     public Producto_panel_oferta(String nombre, String descripcion, String url_imagen, double precio, double precio_descuento, int descuento) {
         initComponents();
         
+        oferta = new Oferta(nombre,precio,cantidad,precio_descuento);
+        
         this.Nombre_producto.setText("<html><p style='width:130px;'>" + nombre + "</p></html>");
         this.Descripcion_producto.setText("<html><p style='width:140px;'>" + descripcion + "</p></html>");
         

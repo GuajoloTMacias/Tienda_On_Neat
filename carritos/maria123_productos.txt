@@ -1,4 +1,0 @@
-Arduino Nano,25.0,1
-Diodos LED,5.0,1
-Kit resistencias,8.0,2
-Pulsador,0.8,1

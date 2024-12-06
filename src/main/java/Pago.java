@@ -305,7 +305,7 @@ public class Pago extends javax.swing.JFrame {
     }//GEN-LAST:event_Numero_TarjetaNumero_TarjetaMouseExited
 
     private void jButton_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_regresarActionPerformed
-        Carrito_1 newpage = new Carrito_1();
+        Carrito newpage = new Carrito();
         newpage.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton_regresarActionPerformed

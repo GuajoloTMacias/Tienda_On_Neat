@@ -281,7 +281,7 @@ public class Homepage_Inicio_sesion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tu carrito está vacío.");
             return;
         } else{
-            Carrito_1 newpagina = new Carrito_1();
+            Carrito newpagina = new Carrito();
             newpagina.setVisible(true);
             this.dispose();
         }

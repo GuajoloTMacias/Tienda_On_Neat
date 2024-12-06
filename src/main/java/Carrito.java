@@ -1,27 +1,29 @@
 package main.java;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
-import tiendaonline.Carrito;
 import tiendaonline.Oferta;
 import tiendaonline.PersistenciaCarrito;
 import tiendaonline.Producto;
 import tiendaonline.Registrado;
 import tiendaonline.Sesion;
 
-public class Carrito_1 extends javax.swing.JFrame {
+public class Carrito extends javax.swing.JFrame {
     private String nombreUsuario; 
 
-    public Carrito_1() {
+    public Carrito() {
         this.nombreUsuario = Sesion.getUsuarioActual().nombreUsuario;
         initComponents();
         Panel_Productos_Seleccionados.setLayout(new GridLayout(0, 1, 0, 10)); 
@@ -53,7 +55,6 @@ public class Carrito_1 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 500));
-        setPreferredSize(new java.awt.Dimension(906, 500));
 
         Panel_Resumen.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -94,11 +95,21 @@ public class Carrito_1 extends javax.swing.JFrame {
         TF_SubTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         TF_SubTotal.setText("$0");
         TF_SubTotal.setBorder(null);
+        TF_SubTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_SubTotalActionPerformed(evt);
+            }
+        });
 
         TF_Total.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         TF_Total.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         TF_Total.setText("$0");
         TF_Total.setBorder(null);
+        TF_Total.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_TotalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Panel_ResumenLayout = new javax.swing.GroupLayout(Panel_Resumen);
         Panel_Resumen.setLayout(Panel_ResumenLayout);
@@ -114,16 +125,16 @@ public class Carrito_1 extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(Panel_ResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(Panel_ResumenLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                                .addComponent(TF_SubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(Panel_ResumenLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(TF_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_ResumenLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(Panel_ResumenLayout.createSequentialGroup()
+                                .addGroup(Panel_ResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(Panel_ResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TF_Total, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                    .addComponent(TF_SubTotal))))
                         .addGap(41, 41, 41)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_ResumenLayout.createSequentialGroup()
@@ -259,6 +270,10 @@ public class Carrito_1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_Borrar_ProductosMouseClicked
 
     private void jButton_PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_PagarActionPerformed
+
+
+        Panel_Productos_Seleccionados.repaint();        
+        Panel_Productos_Seleccionados.revalidate();
         Registrado usuarioActivo = Sesion.getUsuarioActual();
         if (usuarioActivo == null) {
             JOptionPane.showMessageDialog(this, "No hay un usuario activo. Inicia sesión para ver tu carrito.");
@@ -270,7 +285,6 @@ public class Carrito_1 extends javax.swing.JFrame {
 
         if (productosCarrito.isEmpty() && ofertasCarrito.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tu carrito está vacío.");
-            return;
         } else{
             double total = calcularTotal();
             Pago pago = new Pago(total);  
@@ -280,9 +294,32 @@ public class Carrito_1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_PagarActionPerformed
 
     private void jButton_Borrar_ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Borrar_ProductosActionPerformed
-        PersistenciaCarrito.eliminarCarrito();
-        cargarProductosCarrito();
+        try {
+            PersistenciaCarrito.eliminarCarrito();
+            
+            
+            this.TF_SubTotal.setText("$0");
+            this.TF_Total.setText("$0");
+            // Eliminar productos de la interfaz
+
+            this.Panel_Productos_Seleccionados.removeAll();
+            this.Panel_Productos_Seleccionados.revalidate();
+            this.Panel_Productos_Seleccionados.repaint();
+            
+        } catch (FileNotFoundException ex) {
+            System.out.println("El archivo de carrito no existe.");
+        }
+        
+
     }//GEN-LAST:event_jButton_Borrar_ProductosActionPerformed
+
+    private void TF_TotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_TotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_TotalActionPerformed
+
+    private void TF_SubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_SubTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_SubTotalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,7 +328,7 @@ public class Carrito_1 extends javax.swing.JFrame {
   
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Carrito_1().setVisible(true);
+                new Carrito().setVisible(true);
             }
         });
     }
@@ -375,7 +412,7 @@ public class Carrito_1 extends javax.swing.JFrame {
             
             panel_producto_agregado panelProducto = new panel_producto_agregado();
             panelProducto.setNombreProducto(producto.getNombre());
-            panelProducto.setPrecioProducto(String.format("$%.2f", producto.getPrecio()));
+            panelProducto.setPrecioProducto(String.format("%.2f", producto.getPrecio()));
             panelProducto.setCantidadProducto(String.valueOf(producto.getCantidad()));
 
             Panel_Productos_Seleccionados.add(panelProducto);
@@ -384,11 +421,12 @@ public class Carrito_1 extends javax.swing.JFrame {
         for (Oferta oferta : ofertasCarrito) {
             panel_producto_agregado panelOferta = new panel_producto_agregado();
             panelOferta.setNombreProducto(oferta.getNombre());
-            panelOferta.setPrecioProducto(String.format("$%.2f", oferta.getPrecioDescuento()));
+            panelOferta.setPrecioProducto(String.format("%.2f", oferta.getPrecioDescuento()));
             panelOferta.setCantidadProducto(String.valueOf(oferta.getCantidad()));
 
             Panel_Productos_Seleccionados.add(panelOferta);
         }
+        
 
         Panel_Productos_Seleccionados.revalidate();
         Panel_Productos_Seleccionados.repaint();

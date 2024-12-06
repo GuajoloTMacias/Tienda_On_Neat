@@ -261,7 +261,7 @@ public class Homepage_Inicio_sesion_sensor extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_configurciones_inicioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Carrito_1 newpagina = new Carrito_1();
+        Carrito newpagina = new Carrito();
         newpagina.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

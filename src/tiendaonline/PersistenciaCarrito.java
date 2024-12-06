@@ -93,7 +93,7 @@ public class PersistenciaCarrito {
                 try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
                     String linea;
                     while ((linea = reader.readLine()) != null) {
-                        String[] partes = linea.split(";");
+                        String[] partes = linea.split(",");
                         if (partes.length == 4) {
                             String nombre = partes[0];
                             double precio = Double.parseDouble(partes[1]);
@@ -143,20 +143,32 @@ public class PersistenciaCarrito {
     }
     
     
-    public static void eliminarCarrito() {
+    public static void eliminarCarrito() throws FileNotFoundException {
         Registrado usuarioActual = Sesion.getUsuarioActual(); 
         if (usuarioActual != null) {
+            
             String fileName = "carritos/" + usuarioActual.getNombreUsuario() + "_productos.txt"; 
             File archivo = new File(fileName);
-            if (archivo.exists()) {
-                if (archivo.delete()) {
-                    JOptionPane.showMessageDialog(null, "Productos del carrito eliminados correctamente.");
-                } else {
-                    System.out.println("Error al intentar eliminar los productos del carrito.");
-                }
+            
+            String ofertasFileName = "carritos/" + usuarioActual.getNombreUsuario() + "_ofertas.txt"; 
+            File archivoOfertas = new File(ofertasFileName);
+            
+            
+            if (archivo.exists() && archivoOfertas.exists()) {
+                
+                PrintWriter  pw = new PrintWriter(archivo);
+                pw.write("");
+                pw.close();
+                PrintWriter  pwOfertas = new PrintWriter(archivoOfertas);
+                pwOfertas.write("");
+                pwOfertas.close();
+                
+                JOptionPane.showMessageDialog(null, "Productos del carrito eliminados correctamente.");
+
             } else {
                 System.out.println("El archivo de productos no existe.");
             }
+
         } else {
             System.out.println("Error: No hay usuario activo en la sesión.");
         }
